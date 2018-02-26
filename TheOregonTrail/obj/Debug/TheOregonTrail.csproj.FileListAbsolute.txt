@@ -1,0 +1,6 @@
+c:\users\gunni\documents\visual studio 2015\Projects\TheOregonTrail\TheOregonTrail\bin\Debug\TheOregonTrail.exe.config
+C:\Users\gunni\documents\visual studio 2015\Projects\TheOregonTrail\TheOregonTrail\bin\Debug\TheOregonTrail.exe
+C:\Users\gunni\documents\visual studio 2015\Projects\TheOregonTrail\TheOregonTrail\bin\Debug\TheOregonTrail.pdb
+C:\Users\gunni\documents\visual studio 2015\Projects\TheOregonTrail\TheOregonTrail\obj\Debug\TheOregonTrail.csprojResolveAssemblyReference.cache
+C:\Users\gunni\documents\visual studio 2015\Projects\TheOregonTrail\TheOregonTrail\obj\Debug\TheOregonTrail.exe
+C:\Users\gunni\documents\visual studio 2015\Projects\TheOregonTrail\TheOregonTrail\obj\Debug\TheOregonTrail.pdb

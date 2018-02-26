@@ -1,0 +1,270 @@
+
+
+# start menu
+The Oregon Trail
+You may:
+1. Travel the trail
+2. Learn about the trail
+3. See the Oregon Top Ten
+4. Turn sound off
+5. Choose Management Options
+6. End
+What is your choice?
+
+# if 1
+Many kinds of people made the trip to Oregon.
+
+You may:
+
+1. Be a banker from Boston
+2. Be a carpenter from Ohio
+3. Be a farmer from Illinois
+4. Find out the differences between these choice?
+
+What is your choice?
+
+if 1-3
+What is the first name of the wagon leader?
+
+what are the first names of the four other members in your party?
+
+Are these names correct?
+
+It is 1848. Your jumping off place for Oregon is Independence, Missouri. You must decide which month to leave Independence.
+
+1. March
+2. April
+3. May
+4. June
+5. July
+5. Ask for advice
+
+What is your choice?
+
+Before leaving Independence you should buy equipment and supplies. you have $1600.00 in cash, but don't have to spend it all now.
+
+You can but=y ehatever you need at Matt's General Store.
+
+Hello, I'm Matt. So you're going to Oregon! I can fix you up with what you need:
+
+- a team of oxen to pull your wagon
+- clothing for both summer and winter
+
+- plenty of food for the trip
+- ammunition for your rifles
+- spare parts for your wagon
+
+Matt's General Store Independence, Missouri
+ March 1, 1848
+1. Oxen
+2. Food
+3.Clothing
+4. Ammunition
+5. Spare parts
+
+ing supplies shown, if any
+
+
+Matt's General Store 
+Independence, Missouri
+
+There are 2 oxen in a yoke@
+I recommend at least 3 yoke.
+I charge $40 a yoke.
+
+How many yoke do how want!
+
+Bill so far: $0.00
+
+Okay, that comes to a total
+of $xxx.xx. But I see that
+you only have $xxx.xx.
+We'd better go over the
+list again
+
+I recommend you take at
+least 1 pounds of food
+for each person in your
+family. I see that you have
+5 people in all. You'll need
+flour, sugar, bacon, and
+coffee. My price is 20
+cents a pound.
+
+How many pounds of food do
+you want?
+
+Bill so far: $0.00
+
+Matt's General Store 
+Independence, Missouri
+
+You'll need warm clothing in
+the mountains. I recomenmend
+taking at least 2 sets of
+clothes per person. Each
+sets is $10.00.
+
+How many sets of clothes do
+yot want?
+
+Bill so far: $0.00
+
+Matt's General Store 
+Independence, Missouri
+
+I sell ammunition in boxes 
+of 20 bulleta. Each box
+costs $2.00.
+
+How many boxes do you
+want?
+
+Bill so far: $0.00
+
+Matt's General Store 
+Independence, Missouri
+
+It's a good idea to have a
+few spare parts for your
+wagon. Here are the prices:
+
+  wagon wheel  -  $10 each
+  wagon axle   -  $10 each
+  wagon tounge -  $10 each
+
+How many wagon wheels?
+
+How many wagon axles?
+
+How many wagon tounge?
+
+
+Bill so far: $0.00
+
+Well then, you're ready
+to start. Good luck!
+You have a long and
+difficult journey ahead
+of you.
+
+Don't forget, you'll need
+oxen to pull your wagon
+
+# 2. Learn about the trail
+
+Try taking a journaey by
+covered wagon across 2000
+miles of plains, rivers, and
+mountains. Try! On the 
+plains, will you slosh
+your
+oxen through mud and
+water-filled ruts or will you
+plod through dust six inches
+deep?
+
+How will you cross the rivers?
+If you have money, you might
+take a ferry (if there is a
+ferry). Or, you can ford the
+river and hope you and your
+wagon aren't swalloved alive!
+
+What about supplies? Well, if
+you're low on food you can
+hunt. You might get a buffalo...
+you might. And there are
+bear in the mountains.
+
+At the Dalles, you can try
+navigating the Columbia River,
+but if running the rapids with
+a makeshift raft makes you
+queasy, better take the Barlow 
+Road.
+
+If for some reason you don't
+survive -- your wagon burns,
+or thieves steal your oxen, or
+you die of cholera -- don't
+give up! Try again...and
+again...until your name is up
+with the others on The Oregon 
+Top Ten
+
+Control-s key
+
+You may turn the sound on or
+off during the program by
+pressing Control-S
+
+Esc key
+
+You may want to quit in the
+middle of the program. If so,
+press the Escape (Esc) key
+twicw whenever the computer is 
+waiting for a response
+
+The software team responsible
+for creation of this product include
+Ed Gratz
+Charolyn Kapplinger
+Mark Paquette
+Larry Phenow
+Julie Redland
+
+
+--------------------Games begin-----------------------------
+
+Independence
+March 1, 1848
+Press SPACE BAR to coninue
+
+Independence
+March 1, 1848
+Weather: cold
+Health: good
+Pace: steady
+Rations: filling
+
+you may:
+1. Continue on trail
+2. Check supplies
+3. Look at map
+4. Change pace
+5. Change food rations
+6. Stop to rest
+7. Attempt to trade
+8. Talk tp people
+9. Buy supplies
+
+What is your choice?
+---------------------------------------------
+Status---> From Independence it is 102   <---
+Status---> miles to the Kansas River     <---
+Status---> crossing.                     <---
+
+          Date: March 1, 1848
+       Weather: cold
+        Health: good
+          Food: 1000 pounds
+ Next landmark: 102 miles
+Miles traveled: 0 miles
+Press SPACE BAR to coninue
+-----------------------------------------------
+ Status--->                                <---
+press ENTER to size up the situation
+
+          Date: March 1, 1848
+       Weather: cold
+        Health: good
+          Food: 1000 pounds
+ Next landmark: 102 miles
+Miles traveled: 0 miles
+Press SPACE BAR to coninue
+
+
+
+
