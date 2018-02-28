@@ -16,6 +16,14 @@ namespace TheOregonTrail
             
         }
 
+        public static void Spacebar(Player player)
+        {
+            Console.WriteLine("     Press SPACE BAR to continue");
+            ConsoleKeyInfo info = Console.ReadKey();
+            player.playerInput = "";
+            //shop.shopInput = "";
+
+        }
         public static void DetectKeyStroke(Shop shop)
         {
             ConsoleKeyInfo info = Console.ReadKey();

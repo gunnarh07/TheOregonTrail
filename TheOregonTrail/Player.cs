@@ -33,6 +33,6 @@ namespace TheOregonTrail
         public bool debug = true;
         public bool shop = true;
 
-
+        public string playerInput;
     }
 }

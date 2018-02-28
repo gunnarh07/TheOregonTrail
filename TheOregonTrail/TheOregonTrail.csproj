@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game.cs" />
+    <Compile Include="GameMenu.cs" />
     <Compile Include="InputDetection.cs" />
     <Compile Include="Menus.cs" />
     <Compile Include="Player.cs" />

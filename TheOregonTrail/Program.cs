@@ -12,6 +12,7 @@ namespace TheOregonTrail
         {
             Player player = new Player();
             Shop shop = new Shop();
+            Game game = new Game();
 
             var input = 1;
             if (player.debug)
@@ -40,6 +41,22 @@ namespace TheOregonTrail
             InputDetection.Spacebar(shop);
             Console.WriteLine("Next the game begins...TODO");
             Console.ReadKey(true);
+            
+            while (game.GameIsOn)
+            {
+                Console.WriteLine("Independence");
+                Console.WriteLine(player.date);
+                InputDetection.Spacebar(player);
+
+
+                GameMenu.PrintGameMenu(game, player);
+
+
+                Console.ReadKey(true);
+            }
+            
+
+
         }
 
     }
