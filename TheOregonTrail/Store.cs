@@ -274,7 +274,12 @@ namespace TheOregonTrail
                     player.wagonAxel = shop.wagonAxel;
                     player.wagonTounge = shop.wagonTounge;
                     player.wagonWheel = shop.wagonWheel;
-                }
+                }                
+            }
+            else
+            {
+                Console.Clear();
+                PrintStoreMenu(player, shop);
             }
         }
 

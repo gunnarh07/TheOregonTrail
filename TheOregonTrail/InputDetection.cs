@@ -15,6 +15,7 @@ namespace TheOregonTrail
             shop.shopInput = "";
             
         }
+
         public static void DetectKeyStroke(Shop shop)
         {
             ConsoleKeyInfo info = Console.ReadKey();
