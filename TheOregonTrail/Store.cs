@@ -30,7 +30,19 @@ namespace TheOregonTrail
             Console.WriteLine("            Independence, Missouri");
             Console.WriteLine("        -------------------------------");
         }
-        
+
+        public static void SparePartHeader()
+        {
+            Console.WriteLine("          It's a good idea to have a");
+            Console.WriteLine("          few spare parts for your");
+            Console.WriteLine("          wagon.Here are the prices:");
+            Console.WriteLine("");
+            Console.WriteLine("            wagon wheel -  $10 each");
+            Console.WriteLine("            wagon axle -  $10 each");
+            Console.WriteLine("            wagon tounge -  $10 each");
+            Console.WriteLine("");
+        }
+
         public static void printBill(Shop shop, decimal billTotal)
         {
             var oxString = string.Format("           1.  Oxen              ${0:###0.00}", shop.totalOxPrice);
@@ -92,16 +104,25 @@ namespace TheOregonTrail
 
         public static void HowManyOxen(Player player, Shop shop, string shopInput)
         {
-            Console.WriteLine("          There are 2 oxen in a yoke");
-            Console.WriteLine("          I recommend at least 3 yoke.");
-            Console.WriteLine("          I charge $40 a yoke.");
-            Console.WriteLine("");
-            Console.WriteLine("          How many yoke do how");
-            Console.WriteLine("          want!");
+            Console.Clear();
+            do
+            {
+                headerWithOutDate();
 
-            BillSoFar(shop);
+                Console.WriteLine("          There are 2 oxen in a yoke");
+                Console.WriteLine("          I recommend at least 3 yoke.");
+                Console.WriteLine("          I charge $40 a yoke.");
+                Console.WriteLine("");
+                Console.WriteLine("          How many yoke do how");
+                Console.WriteLine("          want!");
 
-            shop.numberOfYokes = int.Parse(Console.ReadLine());
+                BillSoFar(shop);
+
+            
+                shop.numberOfYokes = int.Parse(Console.ReadLine());
+                Console.Clear();
+             } while (shop.numberOfYokes > 9);
+            
             shop.totalOxPrice = shop.numberOfYokes * shop.oxPrice * 2;
             //shop.billTotal += shop.totalOxPrice;
 
@@ -109,8 +130,11 @@ namespace TheOregonTrail
             PrintStoreMenu(player, shop);
         }
 
-        public static void HowMuchFood(Player player, Shop shop, string shopInput)
+        public static void HowMuchFood(Player player, Shop shop)
         {
+            Console.Clear();
+            headerWithOutDate();
+
             Console.WriteLine("          I recommend you take at");
             Console.WriteLine("          least 200 pounds of food");
             Console.WriteLine("          for each person in your");
@@ -128,7 +152,7 @@ namespace TheOregonTrail
             if(shop.poundsOfFoods > 2000)
             {
                 shop.ToMuchFood = true;
-                ToMuchFood();
+                ToMuchFood(player, shop);
             }
             shop.totalFoodPrice = shop.poundsOfFoods * shop.foodPrice;
             shop.billTotal = shop.totalFoodPrice;
@@ -137,30 +161,40 @@ namespace TheOregonTrail
             PrintStoreMenu(player, shop);
         }
 
-        public static void ToMuchFood()
+        public static void ToMuchFood(Player player, Shop shop)
         {
             //This prints out if to much food are bought
+
+            headerWithOutDate();
             Console.WriteLine("");
-            Console.WriteLine("Your wagon may only carry");
-            Console.WriteLine("2000 pounds of food");
+            Console.WriteLine("          Your wagon may only carry");
+            Console.WriteLine("          2000 pounds of food");
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("");
 
+            InputDetection.Spacebar(shop);
+            HowMuchFood(player, shop);
         }
 
         public static void HowManySetsOfClothes(Player player, Shop shop, string shopInput)
         {
-            Console.WriteLine("          You'll need warm clothing in");
-            Console.WriteLine("          the mountains. I recomenmend");
-            Console.WriteLine("          taking at least 2 sets of");
-            Console.WriteLine("          clothes per person.Each");
-            Console.WriteLine("          sets is $10.00.");
-            Console.WriteLine("");
-            Console.WriteLine("          How many sets of clothes do");
-            Console.WriteLine("          you want?");
-            BillSoFar(shop);
-            shop.setsOfClothing = int.Parse(Console.ReadLine());
+            do
+            {
+                Console.Clear();
+                headerWithOutDate();
+                Console.WriteLine("          You'll need warm clothing in");
+                Console.WriteLine("          the mountains. I recomenmend");
+                Console.WriteLine("          taking at least 2 sets of");
+                Console.WriteLine("          clothes per person.Each");
+                Console.WriteLine("          sets is $10.00.");
+                Console.WriteLine("");
+                Console.WriteLine("          How many sets of clothes do");
+                Console.WriteLine("          you want?");
+                BillSoFar(shop);
+                shop.setsOfClothing = int.Parse(Console.ReadLine());
+
+            }while (shop.setsOfClothing > 100);
             shop.totalClothingPrice = shop.setsOfClothing * shop.clothingPrice;
             shop.billTotal = shop.totalClothingPrice;
 
@@ -170,14 +204,19 @@ namespace TheOregonTrail
 
         public static void HowMuchAmmo(Player player, Shop shop, string shopInput)
         {
-            Console.WriteLine("          I sell ammunition in boxes");
-            Console.WriteLine("          of 20 bulleta.Each box");
-            Console.WriteLine("          costs $2.00.");
-            Console.WriteLine("");
-            Console.WriteLine("          How many boxes do you");
-            Console.WriteLine("          want?");
-            BillSoFar(shop);
-            shop.boxOfAmmunition = int.Parse(Console.ReadLine());
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("          I sell ammunition in boxes");
+                Console.WriteLine("          of 20 bulleta.Each box");
+                Console.WriteLine("          costs $2.00.");
+                Console.WriteLine("");
+                Console.WriteLine("          How many boxes do you");
+                Console.WriteLine("          want?");
+                BillSoFar(shop);
+                shop.boxOfAmmunition = int.Parse(Console.ReadLine());
+
+            } while (shop.boxOfAmmunition > 100);
             shop.totalAmmunitionPrice = shop.boxOfAmmunition * shop.ammunitionPrice;
             shop.billTotal = shop.totalAmmunitionPrice;
 
@@ -187,38 +226,88 @@ namespace TheOregonTrail
 
         public static void HowManySpareParts(Player player, Shop shop, string shopInput)
         {
-            for (int i = 0; i < 3; i++)
+            while(!shop.shopSpareParts)
             {
-                headerWithOutDate();
+                if(!shop.wheel)
+                {
+                    headerWithOutDate();
+                    SparePartHeader();
+                    if (!shop.ToManySpearParts)
+                    {
+                        Console.WriteLine("          How many wagon wheels ?");
+                        BillSoFar(shop);
+                        shop.wagonWheel = int.Parse(Console.ReadLine());
+                    }
+                    if (shop.ToManySpearParts)
+                    {
+                        Console.WriteLine("          Your wagon may only carry 3");
+                        Console.WriteLine("          wagon wheels");
+                        Console.WriteLine("");
+                        InputDetection.Spacebar(shop);
+                        shop.wagonWheel = 0;
+                        shop.ToManySpearParts = false;
+                    }
+                    if (shop.wagonWheel < 4)
+                    {
+                        shop.wheel = true;
+                        shop.axel = true;                      
+                    }                                   
+                }
 
-                Console.WriteLine("          It's a good idea to have a");
-                Console.WriteLine("          few spare parts for your");
-                Console.WriteLine("          wagon.Here are the prices:");
-                Console.WriteLine("");
-                Console.WriteLine("            wagon wheel -  $10 each");
-                Console.WriteLine("            wagon axle -  $10 each");
-                Console.WriteLine("            wagon tounge -  $10 each");
-                Console.WriteLine("");
-                if (i == 0)
+                if (shop.axel)
                 {
-                    Console.WriteLine("          How many wagon wheels ?");
-                    BillSoFar(shop);
-                    shop.wagonWheel = int.Parse(Console.ReadLine());
+                    
+                    headerWithOutDate();
+                    SparePartHeader();
+                    if (!shop.ToManySpearParts)
+                    {
+                        Console.WriteLine("          How many wagon axles ?");
+                        BillSoFar(shop);
+                        shop.wagonAxel = int.Parse(Console.ReadLine());
+                    }
+                    if (shop.ToManySpearParts)
+                    {
+                        Console.WriteLine("          Your wagon may only carry 3");
+                        Console.WriteLine("          wagon axles.");
+                        Console.WriteLine("");
+                        InputDetection.Spacebar(shop);
+                        shop.wagonWheel = 0;
+                        shop.ToManySpearParts = false;
+                    }
+                    if (shop.wagonAxel < 4)
+                    {
+                        shop.axel = false;
+                        shop.tongue = true;
+                    }
                 }
-                if (i == 1)
+
+                if (shop.tongue)
                 {
-                    Console.WriteLine("          How many wagon axles ?");
-                    BillSoFar(shop);
-                    shop.wagonAxel = int.Parse(Console.ReadLine());
+                    headerWithOutDate();
+                    SparePartHeader();
+                    if (!shop.ToManySpearParts)
+                    {
+                        Console.WriteLine("          How many wagon tounge ?");
+                        BillSoFar(shop);
+                        shop.wagonTounge = int.Parse(Console.ReadLine());
+                    }
+                    if (shop.ToManySpearParts)
+                    {
+                        Console.WriteLine("          Your wagon may only carry 3");
+                        Console.WriteLine("          wagon tounge.");
+                        Console.WriteLine("");
+                        InputDetection.Spacebar(shop);
+                        shop.wagonTounge = 0;
+                        shop.ToManySpearParts = false;
+                    }
+                    if (shop.wagonTounge < 4)
+                    {
+                        shop.tongue = false;
+                        shop.shopSpareParts = true;
+                    }                    
                 }
-                if (i == 2)
-                {
-                    Console.WriteLine("          How many wagon tounge ?");
-                    BillSoFar(shop);
-                    shop.wagonTounge = int.Parse(Console.ReadLine());
-                }
-                
             }
+            
             shop.spareParts = shop.wagonWheel + shop.wagonAxel + shop.wagonTounge;
 
             shop.totalSparePartsPrice = shop.spareParts * shop.sparePartsPrice;
@@ -302,7 +391,7 @@ namespace TheOregonTrail
                 }
                 if (shop.shopInput == "D2")
                 {
-                    HowMuchFood(player, shop, shop.shopInput);
+                    HowMuchFood(player, shop);
                     break;
                 }
                 if (shop.shopInput == "D3")
@@ -401,7 +490,7 @@ namespace TheOregonTrail
             }
             if (shop.shopInput == "D2")
             {
-                HowMuchFood(player, shop, shop.shopInput);
+                HowMuchFood(player, shop);
             }
             if (shop.shopInput == "D3")
             {

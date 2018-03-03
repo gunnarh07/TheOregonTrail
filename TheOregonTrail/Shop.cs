@@ -14,15 +14,21 @@ namespace TheOregonTrail
         public bool playersMoney = true;
         public bool ToMuchFood = false;
 
+        public bool ToManySpearParts = false;
+        public bool wheel = false;
+        public bool axel = false;
+        public bool tongue = false;
+        public bool shopSpareParts = false;
+
         public int numberOfYokes = 0;
         public int numberOfOxs = 0;
         public int poundsOfFoods = 0;
         public int setsOfClothing = 0;
         public int boxOfAmmunition = 0;
         public int numberOfSpearParts = 0;
-        public int wagonWheel = 0;
-        public int wagonAxel = 0;
-        public int wagonTounge = 0;
+        public int wagonWheel = 4;
+        public int wagonAxel = 4;
+        public int wagonTounge = 4;
         public int spareParts;
 
         public decimal oxPrice = 20.00m;
