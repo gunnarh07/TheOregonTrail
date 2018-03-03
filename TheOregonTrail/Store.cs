@@ -244,14 +244,19 @@ namespace TheOregonTrail
                         Console.WriteLine("          wagon wheels");
                         Console.WriteLine("");
                         InputDetection.Spacebar(shop);
-                        shop.wagonWheel = 0;
+                        shop.wagonWheel = -1;
                         shop.ToManySpearParts = false;
                     }
-                    if (shop.wagonWheel < 4)
+                    if (shop.wagonWheel >= 0 && shop.wagonWheel < 4)
                     {
                         shop.wheel = true;
-                        shop.axel = true;                      
-                    }                                   
+                        shop.axel = true;
+                        shop.ToManySpearParts = false;
+                    }
+                    if (shop.wagonWheel > 3)
+                    {
+                        shop.ToManySpearParts = true;
+                    }                                
                 }
 
                 if (shop.axel)
@@ -271,13 +276,18 @@ namespace TheOregonTrail
                         Console.WriteLine("          wagon axles.");
                         Console.WriteLine("");
                         InputDetection.Spacebar(shop);
-                        shop.wagonWheel = 0;
+                        shop.wagonWheel = -1;
                         shop.ToManySpearParts = false;
                     }
-                    if (shop.wagonAxel < 4)
+                    if (shop.wagonAxel >= 0 && shop.wagonAxel < 4)
                     {
                         shop.axel = false;
                         shop.tongue = true;
+                        shop.ToManySpearParts = false;
+                    }
+                    if (shop.wagonAxel > 3)
+                    {
+                        shop.ToManySpearParts = true;
                     }
                 }
 
@@ -297,14 +307,19 @@ namespace TheOregonTrail
                         Console.WriteLine("          wagon tounge.");
                         Console.WriteLine("");
                         InputDetection.Spacebar(shop);
-                        shop.wagonTounge = 0;
+                        shop.wagonTounge = -1;
                         shop.ToManySpearParts = false;
                     }
-                    if (shop.wagonTounge < 4)
+                    if (shop.wagonTounge >= 0 && shop.wagonTounge < 4)
                     {
                         shop.tongue = false;
                         shop.shopSpareParts = true;
-                    }                    
+                        shop.ToManySpearParts = false;
+                    }
+                    if (shop.wagonTounge > 3)
+                    {
+                        shop.ToManySpearParts = true;
+                    }
                 }
             }
             
