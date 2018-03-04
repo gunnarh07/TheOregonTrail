@@ -1,0 +1,71 @@
+Simulation Features
+
+Travel
+
+Iterates through 2-week trip segments
+Play then proceeds through a series of up to 18 turns (each representing two weeks)
+20+ weeks (246 days) will trigger end game routine
+Expected mileage for next two-weeks calculated with current stats
+Mileage figure is ideal, problems subtract from this figure
+Mileage printed at start of next trip segment
+Average mileage is about 75 miles a week
+The going gets slower and harder later in the trip
+Weather changes, requiring more clothing
+Stopping at a fort for supplies dramatically reduces the miles you can cover in a single turn
+Bad weather occurs 20% of the time
+Injuries 5% of the time
+Detects where the player is on the trail and adjust random events
+Snows in the mountains and river disasters occur on the plains
+Clothes and wagon parts increase 2.5 dollars
+Food increases .10 dollars and bullets increase 2.5 dollars
+Oxen go up 5 dollars at each fort
+When you rest at a land mark people often heal quicker than on the trail
+Locations have fresh water flag if enabled doubles change for dysentery and cholera
+Maximum amount of weight that can be carried back after a hunt is 250 lbs of food
+The less buffalo you kill the better deal you shall receive from Indian wanting clothes
+Random chance for Indian Guide to help cross river for 1-5 sets of clothes
+Hunting
+
+Random shooting word selected
+Date is taken for hunting start time
+Wait for correct shooting word input
+Subtract start time from end time
+If 2 seconds or less good shot, longer bad
+Ammunition consumption calculated from shoot time
+Eating
+
+Food consumption in pounds calculated from ration level per day
+Random Events
+
+Select random number from 0 to 100 that will be dice roll
+Probability determined by sucessive numbers in array
+0-6=event1, 6-11=event2, 11-13=event3, and so on...
+Event typically prints message, subtracts mileage, and supplies
+Events cold weather, bandits, wild-animal attack, illness are more complicated
+Climate
+
+Check if set of clothing for every member in party
+If not enough clothes illness routine is called
+Illness routine can also be called if starvation flag is set
+Illness
+
+Check how well the player has been eating
+If bad chance to contract mild, bad, or very serious illness
+Mild and serious can be ignored, the others medical services
+Mountains
+
+Higher elevations risk cave-ins, losing your way, and slow going
+80% chance of getting stuck in South Pass
+70% chance of getting stuck in Blue Mountains
+Will never be stuck for more than 10 days
+90% chance for blizzard at high elevations
+Death
+
+Not enough food, clothing, ammunition, or medical supplies
+Short message is displayed telling you what happened
+How far you traveled is shown, remaining supplies
+Assumed less than 50% made it, realistic 20%
+Winning
+
+Display total time of journey
+Remain

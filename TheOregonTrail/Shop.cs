@@ -31,10 +31,14 @@ namespace TheOregonTrail
         public int wagonTounge = 4;
         public int spareParts;
 
+        //Price of stuff
         public decimal oxPrice = 20.00m;
         public decimal foodPrice = .20m;
         public decimal clothingPrice = 10m;
         public decimal ammunitionPrice = 2m;
+        public decimal wheelsPrice = 10m;
+        public decimal axlesPrice = 10m;
+        public decimal tonguesPrice = 10m;
         public decimal sparePartsPrice = 10m;
 
 

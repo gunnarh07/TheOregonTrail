@@ -236,7 +236,8 @@ namespace TheOregonTrail
                     {
                         Console.WriteLine("          How many wagon wheels ?");
                         BillSoFar(shop);
-                        shop.wagonWheel = int.Parse(Console.ReadLine());
+                        if (player.debug) { shop.wagonWheel = 1; }
+                        else { shop.wagonWheel = int.Parse(Console.ReadLine()); }                        
                     }
                     if (shop.ToManySpearParts)
                     {

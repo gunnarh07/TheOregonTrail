@@ -17,47 +17,63 @@ namespace TheOregonTrail
             var input = 1;
             if (player.debug)
             {
-                input = 1;
+                player.occupation = "Farmer";
+                player.money = 400;
+                player.name1 = "Gunni";
+                player.name2 = "Liney";
+                player.name3 = "Birta";
+                player.name4 = "Victor";
+                player.name5 = "Margret";
+                string date = "01-03-1848";
+                DateTime dateOfDeparture = Convert.ToDateTime(date);
+                player.date = dateOfDeparture;
+                player.numberOfOxs = 4;
+                player.numberOfYokes = 2;
+                player.poundsOfFoods = 300;
+                player.setsOfClothing = 10;
+                player.ammo = 100;
+                player.spareParts = 3;
+                player.wagonWheel = 1;
+                player.wagonAxel = 1;
+                player.wagonTounge = 1;
+
+               
             }
-            else { input = Menus.StartScreenMenu(); }         
+            else
+            {
+                input = Menus.StartScreenMenu();
+            
 
             
-            if (input == 1)
-            {
-                Menus.OccupationMenu(player, shop);    
+                if (input == 1)
+                {
+                    Menus.OccupationMenu(player, shop);    
+                }
+
+                if (input == 1 || input == 2 || input == 3)
+                {
+                    Menus.NameMenu(player);                
+                }
+
+                Menus.DateOfDeparture(player);
+
+                Console.Clear();
+
+                Store.TheStore(player, shop);
+                //Gameloop
+                InputDetection.Spacebar(shop);
             }
 
-            if (input == 1 || input == 2 || input == 3)
-            {
-                Menus.NameMenu(player);                
-            }
-
-            Menus.DateOfDeparture(player);
-
-            Console.Clear();
-
-            Store.TheStore(player, shop);
-            //Gameloop
-            InputDetection.Spacebar(shop);
-            Console.WriteLine("Next the game begins...TODO");
-            Console.ReadKey(true);
-            
             while (game.GameIsOn)
             {
-                Console.WriteLine("Independence");
-                Console.WriteLine(player.date);
-                InputDetection.Spacebar(player);
+                //Console.Clear();
+                //Console.WriteLine("Independence");
+                //Console.WriteLine(player.date);
+                //InputDetection.Spacebar(player);
 
 
-                GameMenu.PrintGameMenu(game, player);
-
-
-                Console.ReadKey(true);
-            }
-            
-
-
+                GameMenu.PrintGameMenu(game, player, shop);
+            } 
         }
-
     }
 }

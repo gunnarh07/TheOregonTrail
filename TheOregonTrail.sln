@@ -8,6 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCD7013C-5F6A-4AC5-B78E-3BFE5AB42C2B}"
 	ProjectSection(SolutionItems) = preProject
 		Options.txt = Options.txt
+		orginalcode.txt = orginalcode.txt
+		orginalgamesim.txt = orginalgamesim.txt
 	EndProjectSection
 EndProject
 Global
