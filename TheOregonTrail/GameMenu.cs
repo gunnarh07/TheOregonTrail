@@ -27,22 +27,35 @@ namespace TheOregonTrail
             Console.WriteLine("   Pace: {0}", player.steady);
             Console.WriteLine("   Rations: {0}", player.getRation(player));
         }
+
         public static void Message()
         {
-            Console.WriteLine("message");
+            Console.WriteLine("        Message");
         }
 
-        public static void DayCycle(Game game, Player player)
+        public static void CalculateMilesOfLeg(Game game, Player player)
         {
-            while(player.dayCycle)
+            player.NextLandmark = player.NextLandmark - player.pace;
+            
+            player.MilesTraveled += player.pace;
+        }
+
+        public static void Cycle(Game game, Player player)
+        {
+            game.GetMiles(player);
+            game.GetLegs(player);
+
+            while(player.Cycle)
             {
+                
+                Console.Clear();
                 Message();
                 Console.WriteLine(player.date);
                 Console.WriteLine("           Weather: {0}", player.weather);
-                Console.WriteLine("            Health: {0}",player.health);
-                Console.WriteLine("              Food: {0}",player.poundsOfFoods);
-                Console.WriteLine("     Next Landmark: {0}",);
-                Console.WriteLine("    Miles Traveled: {0}",);
+                Console.WriteLine("            Health: {0}", player.health);
+                Console.WriteLine("              Food: {0}", player.poundsOfFoods);
+                Console.WriteLine("     Next Landmark: {0}", player.NextLandmark);
+                Console.WriteLine("    Miles Traveled: {0}", player.MilesTraveled);
                 //Calculates all things over a day
                 //ads a day
                 player.date = player.date.AddDays(1);
@@ -51,6 +64,7 @@ namespace TheOregonTrail
                 //food consumed
                 player.poundsOfFoods -= player.teamSize * player.rations;
                 //
+                CalculateMilesOfLeg(game, player);
                 System.Threading.Thread.Sleep(3000);
             }
 
@@ -175,7 +189,7 @@ namespace TheOregonTrail
 
         public static void PrintGameMenu(Game game, Player player, Shop shop)
         {
-            while(game.gameMenu)
+            while(game.GameMenu)
             {
                 headerWithDate(player);
                 StatusBar(game, player);
@@ -195,7 +209,7 @@ namespace TheOregonTrail
                 InputDetection.DetectGameMenuInput(game, player, shop);
                 if (game.gameMenuInput == "D1")
                 {
-                    DayCycle(player);
+                    Cycle(game, player);
                 }
                 if (game.gameMenuInput == "D2")
                 {

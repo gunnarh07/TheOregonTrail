@@ -38,13 +38,19 @@ namespace TheOregonTrail
 
         public bool debug = true;
         public bool shop = true;
-        public bool dayCycle = true;
-        //ration pounds per teammember
+        public bool Cycle = true;
+
+        public int leg = 0;
+        public int MilesTraveled = 0;
+        public int NextLandmark = 0;
+        public int pace = 20;
+
+        //ration pounds per team member
         public int rations = 3;
 
         public string playerInput;
 
-        public int pace = 20;
+        
 
         public static string getPace(Player player)
         {
