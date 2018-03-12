@@ -1,0 +1,54 @@
+game menu > continue trail >
+you are now at the kansas river crossing. eould you like to look around?
+y > picture of Kansas River crossing >space bar > game menu > continu trail>
+------------------------------------------
+Location
+date
+
+You must cross the river in
+order to continue. The
+river at this point is
+currently 640 feet across,
+and 6.4 feet deep in the
+middle.
+
+press space bar to continue
+---------------------------------------------
+Location
+date
+
+weather:cold
+River width: 640 feet
+River depth: 6.4 feet
+
+you may:
+
+1. attempt to ford the river.
+2. caulk the wagon and float it accross
+3. take a ferry across
+4. wait to see if condition improve
+5. get more information
+
+what is your choice?
+---------------------------------------------
+(3)
+Location
+date
+
+The ferry operator says that
+he will charge you $5.00 and
+that you will have to wait 2
+days. Are you willing to do
+This? y
+-------------------------------
+
+(message)
+The ferry got your party
+and wagon safely across
+
+press space bar to continue
+------------------------------
+(message)
+From the Kansas River
+crossing it is 82 miles to
+the Big Blue River crossing

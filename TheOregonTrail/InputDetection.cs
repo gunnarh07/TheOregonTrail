@@ -15,18 +15,16 @@ namespace TheOregonTrail
         }
 
         public static void Space()
-        {
+         {
             Console.WriteLine("     Press SPACE BAR to continue");
             ConsoleKeyInfo info = Console.ReadKey();
-
         }
 
         public static void Spacebar(Shop shop)
         {
             Console.WriteLine("     Press SPACE BAR to continue");
             ConsoleKeyInfo info = Console.ReadKey();
-            shop.shopInput = "";
-            
+            shop.shopInput = "";            
         }
 
         public static void Spacebar(Player player)
@@ -34,12 +32,33 @@ namespace TheOregonTrail
             Console.WriteLine("     Press SPACE BAR to continue");
             ConsoleKeyInfo info = Console.ReadKey();
             player.playerInput = "";
-            //shop.shopInput = "";
-
         }
+
+        public static void SpaceOrYes(Game game, Player player, Shop shop)
+        {
+            Console.WriteLine("     Press SPACE BAR to continue");
+            ConsoleKeyInfo GameMenuInput = Console.ReadKey();            
+            if (GameMenuInput.Key == ConsoleKey.Spacebar)
+            {
+                //ConsoleKeyInfo c = Console.ReadKey();
+                //if (c.Key == ConsoleKey.Spacebar)
+                //{
+                //    //game.gameMenuInput = ConsoleKey.Spacebar.ToString();
+                //}
+            }
+            if (GameMenuInput.Key == ConsoleKey.Y)
+            {
+                
+                GameMenu.ShowKansasRiverCrossing(player);
+                GameMenu.PrintGameMenu(game, player, shop);
+                
+            }
+        }
+
         public static void DetectGameMenuInput(Game game, Player player, Shop shop)
         {
             ConsoleKeyInfo GameMenuInput = Console.ReadKey();
+
             if (GameMenuInput.Key == ConsoleKey.D1)
             {
                 ConsoleKeyInfo c = Console.ReadKey();
@@ -47,7 +66,6 @@ namespace TheOregonTrail
                 {
                     game.gameMenuInput = ConsoleKey.D1.ToString();
                 }
-
             }
             if (GameMenuInput.Key == ConsoleKey.D2)
             {
@@ -123,10 +141,6 @@ namespace TheOregonTrail
             {
                 shop.shopInput = ConsoleKey.Spacebar.ToString();
             }
-            //if(info.Key != ConsoleKey.Spacebar)
-            //{
-            //    var returning = DetectKeyStroke();
-            //}
             if (info.Key == ConsoleKey.D1)
             {
                 ConsoleKeyInfo c = Console.ReadKey();

@@ -36,21 +36,40 @@ namespace TheOregonTrail
         public int wagonTounge = 0;
         public int spareParts;
 
+        public bool ShowMessage = true;
+        /// <summary>
+        /// debug
+        /// </summary>
         public bool debug = true;
         public bool shop = true;
-        public bool Cycle = true;
-
+        public bool Traveling = true;
+        public bool AtLandmark = true;
+        //public bool ArriveAtLandmark = false;
+        public bool ReadAtBeginingOfLeg = true;
         public int leg = 0;
         public int MilesTraveled = 0;
-        public int NextLandmark = 0;
+        public int MilesToNextLandmark = 0;
         public int pace = 20;
+        public string Landmark;
+        public bool AtFort = true;
+        public bool InitLeg = true;
+        public int LegMiles = 102;
+        public int leg1 = 102;
+        public int leg2 = 82;
+        public int IndexForMiles = 0;
+        public int IndexForLegs = 0;
+        public int riverWidth = 642;
+        public float riverDepth = 6.7F;
+        //legs comformation
+        public bool krc = false;
 
         //ration pounds per team member
         public int rations = 3;
 
         public string playerInput;
-
+        public string GameInput;
         
+        public bool insidecycle = false; 
 
         public static string getPace(Player player)
         {
@@ -62,7 +81,7 @@ namespace TheOregonTrail
         public static string getWeather()
         {
 
-            string weather = "Weather:  cold";
+            string weather = "cold";
             return weather;
         }
 

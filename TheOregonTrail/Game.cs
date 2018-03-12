@@ -14,6 +14,7 @@ namespace TheOregonTrail
         
         public bool GameIsOn = true;
         public bool GameMenu = true;
+        int index = 0;
 
         List<int> Miles = new List<int>(new int[] { 102, 82, 118, 250, 86, 190, 102, 57, 125, 143, 57, 182, 113, 999, 160, 55, 999, 999, 999, 100 });
 
@@ -39,14 +40,16 @@ namespace TheOregonTrail
                                                                 "Barlow Road",
                                                                 "Willameete Valley Oregon", });
 
-        public string GetLegs(Player player)
+        public List<string> GetLegs(Player player)
         {
-            return Landmarks[player.leg];                
+            //var i = Landmarks[I + 1];
+            return Landmarks;
         }
 
-        public void GetMiles(Player player)
+        public List<int> GetMiles(Player player)
         {
-            player.NextLandmark = Miles[player.leg];
+            
+            return Miles;
         }
 
         //Dictionary<string, int> Leg = new Dictionary<string, int>();

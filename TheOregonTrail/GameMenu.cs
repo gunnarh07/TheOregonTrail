@@ -8,66 +8,198 @@ namespace TheOregonTrail
 {
     class GameMenu
     {
+        public static void PlaceAt()
+        {
+            Console.Clear();
+            Console.WriteLine("            Independence");
+        }
+
         public static void headerWithDate(Player player)
         {
             string dateFormat = "MMMM d yyyy";
-
-            Console.Clear();
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("                 Independence");
-            Console.WriteLine("                 {0}", player.date.ToString(dateFormat));
-            Console.WriteLine("");
+            Console.WriteLine("            {0}      ", player.date.ToString(dateFormat));            
         }
 
         public static void StatusBar(Game game, Player player)
         {
-            Console.WriteLine("   Weather: {0}", player.weather);
-            Console.WriteLine("   Health: {0}", player.health);
-            Console.WriteLine("   Pace: {0}", player.steady);
-            Console.WriteLine("   Rations: {0}", player.getRation(player));
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("   Weather: {0}              ", player.weather);
+            Console.WriteLine("   Health:  {0}              ", player.health);
+            Console.WriteLine("   Pace: {0}               ", player.steady);
+            Console.WriteLine("   Rations: {0}           ", player.getRation(player));
+            Console.ResetColor();
         }
 
-        public static void Message()
+        public static void ViewKansasRiver(Player player)
         {
-            Console.WriteLine("        Message");
+            Console.WriteLine("     Kansas River crossing");
+            headerWithDate(player);
+        }
+
+        public static void Message(Player player)
+        {
+            if(player.leg == 0 && player.leg1 == 102)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("     From Independence it is 102");
+                Console.WriteLine("     miles to the Kansas River");
+                Console.WriteLine("     crossing");
+            }
+            if(player.leg == 0 && player.leg1 == 0)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("     You are now at the Kansas");
+                Console.WriteLine("     River crossing. Would you");
+                Console.WriteLine("     Like to look around");
+                player.AtLandmark = true;
+            }
+            else
+            {
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("");
+            }          
+        }
+
+        public static void NoMessage()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+        }
+
+        public static void GetNextLandmark()
+        {
+            Console.WriteLine("");
         }
 
         public static void CalculateMilesOfLeg(Game game, Player player)
         {
-            player.NextLandmark = player.NextLandmark - player.pace;
-            
-            player.MilesTraveled += player.pace;
-        }
-
-        public static void Cycle(Game game, Player player)
-        {
-            game.GetMiles(player);
-            game.GetLegs(player);
-
-            while(player.Cycle)
+            var TempNextLandmark = player.leg1;
+            var tempMiles = TempNextLandmark - player.pace;
+            if (tempMiles <= 0)
             {
+                player.MilesTraveled += player.leg1;
+                player.leg1 = 0;
+                //GetNextLandmark();
                 
-                Console.Clear();
-                Message();
-                Console.WriteLine(player.date);
-                Console.WriteLine("           Weather: {0}", player.weather);
-                Console.WriteLine("            Health: {0}", player.health);
-                Console.WriteLine("              Food: {0}", player.poundsOfFoods);
-                Console.WriteLine("     Next Landmark: {0}", player.NextLandmark);
-                Console.WriteLine("    Miles Traveled: {0}", player.MilesTraveled);
-                //Calculates all things over a day
-                //ads a day
-                player.date = player.date.AddDays(1);
-                //calculates miles traveled
-                //player.pace = player.
-                //food consumed
-                player.poundsOfFoods -= player.teamSize * player.rations;
-                //
-                CalculateMilesOfLeg(game, player);
-                System.Threading.Thread.Sleep(3000);
+            }
+            else
+            {
+                player.leg1 = player.leg1 - player.pace;
+                player.MilesTraveled += player.pace;
             }
 
+            //if(player.MilesTraveled == )
+            
+        }
+
+        public static void ArivingAtLandmark()
+        {
+
+        }
+
+        public static void Status(Player player)
+        {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            headerWithDate(player);
+            Console.WriteLine("           Weather: {0}     ", player.weather);
+            Console.WriteLine("            Health: {0}     ", player.health);
+            Console.WriteLine("              Food: {0}      ", player.poundsOfFoods);
+            Console.WriteLine("     Next Landmark: {0}      ", player.leg1);
+            Console.WriteLine("    Miles Traveled: {0}        ", player.MilesTraveled);
+            Console.ResetColor();
+        }
+
+        public static void Cycle(Game game, Player player, Shop shop)
+        {
+            List<int> TempMiles = game.GetMiles(player);
+            List<string> TempLegs = game.GetLegs(player);
+            player.MilesToNextLandmark = TempMiles[player.IndexForMiles];
+            player.Landmark = TempLegs[player.IndexForLegs];
+            player.AtFort = false;
+
+            while (player.Traveling)
+            {
+                if(player.InitLeg)
+                {
+                    player.leg1 = TempMiles[player.IndexForMiles];
+                    player.InitLeg = false;
+                }
+                Console.Clear();
+                if (player.ShowMessage)
+                {
+                    Message(player);
+                    //player.ShowMessage = false;
+                }
+                if(!player.AtLandmark)
+                {
+                    Console.WriteLine("  Press ENTER to size up the situation");
+                }
+                
+                Status(player);
+                if (player.AtLandmark)
+                {
+                    InputDetection.SpaceOrYes(game, player, shop);
+
+                    //string input = Console.ReadLine();
+                    //if (input == "y" || input == "Y")
+                    //{
+                    //    ShowKansasRiverCrossing(player);
+                    //    PrintGameMenu(game, player, shop);
+                    //}
+                }
+                if (player.leg1 <= 0)
+                {
+                    var i = TempMiles[player.IndexForMiles];
+                    player.MilesToNextLandmark = i;
+                    player.AtLandmark = true;
+                }
+                
+                else
+                {
+                    //calculates miles traveled
+                    //player.pace = player.
+                    //food consumed
+                    player.date = player.date.AddDays(1);
+                    player.poundsOfFoods -= player.teamSize * player.rations;
+                    CalculateMilesOfLeg(game, player);
+                    player.AtLandmark = false;
+                    
+                }
+                
+                if (!player.AtLandmark)
+                {
+
+                    while (Console.KeyAvailable)
+                    {
+                        if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                        {
+                            player.insidecycle = true;
+                            PrintGameMenu(game, player, shop);
+                        }
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+            }
+            player.insidecycle = false;
+            ArivingAtLandmark();
+        }
+
+        public static void ShowKansasRiverCrossing(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("Beautiful Picture of Kansas River cossing");
+            Console.WriteLine("         Kansas River cossing");
+            headerWithDate(player);
+            InputDetection.Space();
         }
 
         public static void Supplies(Player player)
@@ -187,10 +319,145 @@ namespace TheOregonTrail
             Console.WriteLine("Which number?");
         }
 
+        public static void KansasRiverCrossing(Game game, Player player, Shop shop)
+        {
+            if(!player.krc)
+            {
+                Console.Clear();
+                Console.WriteLine("Kansas River crossing");
+                headerWithDate(player);
+                Console.WriteLine("");
+                Console.WriteLine("You must cross the river in");
+                Console.WriteLine("order to continue. The");
+                Console.WriteLine("river at this point is ");
+                Console.WriteLine("currently 642 feet across,");
+                Console.WriteLine("and 6.7 feet deep in the");
+                Console.WriteLine("middle");
+                Console.WriteLine("");
+                InputDetection.Space();
+                player.krc = true;
+            }
+            
+
+            Console.Clear();
+            Console.WriteLine("Kansas River crossing");
+            headerWithDate(player);
+            Console.WriteLine("");
+            Console.WriteLine("Weather: {0}     ", player.weather);
+            Console.WriteLine("River width: {0}     ", player.riverWidth);
+            Console.WriteLine("River depth: {0}     ", player.riverDepth);
+            Console.WriteLine("");
+            Console.WriteLine("You may:");
+            Console.WriteLine("");
+            Console.WriteLine("1. attempt to ford the river.");
+            Console.WriteLine("2.caulk the wagon and float it accross");
+            Console.WriteLine("3.take a ferry across");
+            Console.WriteLine("4.wait to see if condition improve");
+            Console.WriteLine("5.get more information");
+            Console.WriteLine("");
+            Console.WriteLine("What is your choice?");
+            InputDetection.DetectGameMenuInput(game, player, shop);
+            
+            if (game.gameMenuInput == "D1")
+            {
+               Ford(game, player, shop);
+            }
+            if (game.gameMenuInput == "D2")
+            {
+                CaulkTheWagon(game, player, shop);
+            }
+            if (game.gameMenuInput == "D3")
+            {
+                TakeFerry(player);
+            }
+            if (game.gameMenuInput == "D4")
+            {
+                WaitToSee(player);
+                
+            }
+            if (game.gameMenuInput == "D5")
+            {
+                GetMoreInfo(game, player, shop);
+            }
+            KansasRiverCrossing(game, player, shop);
+        }
+
+        public static void Ford(Game game, Player player, Shop shop)
+        {
+            Console.Clear();
+            Console.WriteLine("Ford");
+            InputDetection.Space();
+        }
+        public static void CaulkTheWagon(Game game, Player player, Shop shop)
+        {
+            Console.Clear();
+            Console.WriteLine("CaulkTheWagon");
+            InputDetection.Space();
+        }
+        public static void TakeFerry(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("TakeFerry");
+            InputDetection.Space();
+        }
+        public static void WaitToSee(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("Kansas River crossing");
+            headerWithDate(player);
+            Console.WriteLine("");
+            Console.WriteLine("You camp near the river for a day.");
+            Console.WriteLine("");
+            InputDetection.Space();
+            player.date = player.date.AddDays(1);
+
+        }
+        public static void GetMoreInfo(Game game, Player player, Shop shop)
+        {
+            Console.Clear();
+            Console.WriteLine("Kansas River crossing");
+            headerWithDate(player);
+            Console.WriteLine("");
+            Console.WriteLine("To ford a river means to");
+            Console.WriteLine("pull your wagon across a");
+            Console.WriteLine("shallow part of the river,");
+            Console.WriteLine("with the oxen still");
+            Console.WriteLine("attached");
+            Console.WriteLine("");
+            InputDetection.Space();
+
+            Console.Clear();
+            Console.WriteLine("Kansas River crossing");
+            headerWithDate(player);
+            Console.WriteLine("");
+            Console.WriteLine("To caulk the wagon means to");
+            Console.WriteLine("seal it so that no water can");
+            Console.WriteLine("get in. The wagon can then");
+            Console.WriteLine("be floated across like a");
+            Console.WriteLine("boat");
+            Console.WriteLine("");
+            InputDetection.Space();
+
+            Console.Clear();
+            Console.WriteLine("Kansas River crossing");
+            headerWithDate(player);
+            Console.WriteLine("");
+            Console.WriteLine("To use ferry means to put");
+            Console.WriteLine("your wagon on top of a flat");
+            Console.WriteLine("boat that belongs to someone");
+            Console.WriteLine("else. The owner of the");
+            Console.WriteLine("ferry will take your wagon");
+            Console.WriteLine("across the river");
+            Console.WriteLine("");
+            InputDetection.Space();
+            KansasRiverCrossing(game, player, shop);
+        }
+
         public static void PrintGameMenu(Game game, Player player, Shop shop)
         {
             while(game.GameMenu)
             {
+                PlaceAt();
                 headerWithDate(player);
                 StatusBar(game, player);
                 Console.WriteLine("You may:");
@@ -202,14 +469,30 @@ namespace TheOregonTrail
                 Console.WriteLine("     6. Stop to rest");
                 Console.WriteLine("     7. Attempt to trade");
                 Console.WriteLine("     8. Talk to people");
-                Console.WriteLine("     9. Buy supplies");
+                if(player.AtFort)
+                {
+                    Console.WriteLine("     9. Buy supplies");
+                }
+                
                 Console.WriteLine("");
                 Console.WriteLine("What is your choice?");
 
                 InputDetection.DetectGameMenuInput(game, player, shop);
+                if (game.gameMenuInput == "D1" && player.insidecycle == true)
+                {
+                    break;
+                }
                 if (game.gameMenuInput == "D1")
                 {
-                    Cycle(game, player);
+                    if(player.MilesTraveled == 0)
+                    {
+                        Cycle(game, player, shop);
+                    }
+                    if(player.MilesTraveled == 102)
+                    {
+                        KansasRiverCrossing(game, player, shop);
+                        break;
+                    }
                 }
                 if (game.gameMenuInput == "D2")
                 {
