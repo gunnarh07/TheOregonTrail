@@ -43,18 +43,36 @@ namespace TheOregonTrail
             {
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine("     From Independence it is 102");
-                Console.WriteLine("     miles to the Kansas River");
-                Console.WriteLine("     crossing");
+                Console.WriteLine("     From {0} it is {1}", player.Landmark, player.leg1);
+                Console.WriteLine("     miles to the {0}", player.NextLandmark);
+                //Console.WriteLine("     crossing");
             }
             if(player.leg == 0 && player.leg1 == 0)
             {
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine("     You are now at the Kansas");
-                Console.WriteLine("     River crossing. Would you");
+                Console.WriteLine("     You are now at the {0}", player.NextLandmark);
+                Console.WriteLine("     crossing. Would you");
                 Console.WriteLine("     Like to look around");
                 player.AtLandmark = true;
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("     Severe blizzard. Lose 1 day.");
+                Console.WriteLine("");
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("     {0} has a broken arm." , player.someName);
+                Console.WriteLine("");
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("     {0} has a broken arm.", player.someName);
+                Console.WriteLine("");
             }
             else
             {
@@ -124,6 +142,7 @@ namespace TheOregonTrail
             List<string> TempLegs = game.GetLegs(player);
             player.MilesToNextLandmark = TempMiles[player.IndexForMiles];
             player.Landmark = TempLegs[player.IndexForLegs];
+            player.NextLandmark = TempLegs[player.IndexForLegs + 1];
             player.AtFort = false;
 
             while (player.Traveling)
@@ -350,10 +369,10 @@ namespace TheOregonTrail
             Console.WriteLine("You may:");
             Console.WriteLine("");
             Console.WriteLine("1. attempt to ford the river.");
-            Console.WriteLine("2.caulk the wagon and float it accross");
-            Console.WriteLine("3.take a ferry across");
-            Console.WriteLine("4.wait to see if condition improve");
-            Console.WriteLine("5.get more information");
+            Console.WriteLine("2. caulk the wagon and float it accross");
+            Console.WriteLine("3. take a ferry across");
+            Console.WriteLine("4. wait to see if condition improve");
+            Console.WriteLine("5. get more information");
             Console.WriteLine("");
             Console.WriteLine("What is your choice?");
             InputDetection.DetectGameMenuInput(game, player, shop);
@@ -372,8 +391,7 @@ namespace TheOregonTrail
             }
             if (game.gameMenuInput == "D4")
             {
-                WaitToSee(player);
-                
+                WaitToSee(player);                
             }
             if (game.gameMenuInput == "D5")
             {
@@ -397,8 +415,25 @@ namespace TheOregonTrail
         public static void TakeFerry(Player player)
         {
             Console.Clear();
-            Console.WriteLine("TakeFerry");
-            InputDetection.Space();
+            Console.WriteLine("Kansas River crossing");
+            headerWithDate(player);
+            Console.WriteLine("");
+            Console.WriteLine("The ferry operator says that");
+            Console.WriteLine("he will charge you $5.00 and");
+            Console.WriteLine("that you will have to wait 2");
+            Console.WriteLine("days. Are you willing to do ");
+            Console.WriteLine("this?");
+            string takeFerry = Console.ReadLine();
+            if (takeFerry == "y" || takeFerry == "yes")
+            {
+                Console.Clear();
+                Console.WriteLine("Taking the ferry!");
+                System.Threading.Thread.Sleep(4000);
+                Console.Clear();
+                Console.WriteLine("The Ferry got your party");
+                Console.WriteLine("and wagon safely across.");
+                InputDetection.Space();
+            }
         }
         public static void WaitToSee(Player player)
         {

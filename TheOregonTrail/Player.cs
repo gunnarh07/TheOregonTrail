@@ -51,6 +51,7 @@ namespace TheOregonTrail
         public int MilesToNextLandmark = 0;
         public int pace = 20;
         public string Landmark;
+        public string NextLandmark;
         public bool AtFort = true;
         public bool InitLeg = true;
         public int LegMiles = 102;
@@ -60,9 +61,10 @@ namespace TheOregonTrail
         public int IndexForLegs = 0;
         public int riverWidth = 642;
         public float riverDepth = 6.7F;
+        public string someName = "Someone";
         //legs comformation
         public bool krc = false;
-
+        public bool gameEvent = false;
         //ration pounds per team member
         public int rations = 3;
 
