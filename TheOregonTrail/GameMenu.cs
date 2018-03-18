@@ -8,10 +8,10 @@ namespace TheOregonTrail
 {
     class GameMenu
     {
-        public static void PlaceAt()
+        public static void PlaceAt(Player player)
         {
             Console.Clear();
-            Console.WriteLine("            Independence");
+            Console.WriteLine("            {0}", player.Landmark);
         }
 
         public static void headerWithDate(Player player)
@@ -33,28 +33,32 @@ namespace TheOregonTrail
 
         public static void ViewKansasRiver(Player player)
         {
-            Console.WriteLine("     Kansas River crossing");
+            Console.WriteLine("     {0}", player.Landmark);
             headerWithDate(player);
         }
 
         public static void Message(Player player)
         {
-            if(player.leg == 0 && player.leg1 == 102)
+            if(player.AtLandmark)
             {
                 Console.WriteLine("");
                 Console.WriteLine("");
                 Console.WriteLine("     From {0} it is {1}", player.Landmark, player.leg1);
                 Console.WriteLine("     miles to the {0}", player.NextLandmark);
-                //Console.WriteLine("     crossing");
+                player.ArrivingLanmark = false;
+                
+                
             }
-            if(player.leg == 0 && player.leg1 == 0)
+            if(player.ArrivingLanmark)
             {
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine("     You are now at the {0}", player.NextLandmark);
-                Console.WriteLine("     crossing. Would you");
-                Console.WriteLine("     Like to look around");
+                Console.WriteLine("     You are now at the {0}.", player.NextLandmark);
+                Console.WriteLine("     Would you like to look around");
                 player.AtLandmark = true;
+                player.LeavingALandmark = true;
+                
+                
             }
             if (player.gameEvent)
             {
@@ -72,6 +76,23 @@ namespace TheOregonTrail
             {
                 Console.WriteLine("");
                 Console.WriteLine("     {0} has a broken arm.", player.someName);
+                Console.WriteLine("");
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("     Lose trail. Lose {0} days.", player.someInt);
+                Console.WriteLine("");
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("     Broken wagon wheel. Would you like");
+                Console.WriteLine("     to try to repair it?");
+                //Todo yes or no
+                //if able
+                Console.WriteLine("     You where able to repair the wagon wheel.");
+                //if not able have to change it
                 Console.WriteLine("");
             }
             else
@@ -105,24 +126,16 @@ namespace TheOregonTrail
             {
                 player.MilesTraveled += player.leg1;
                 player.leg1 = 0;
-                //GetNextLandmark();
                 
             }
             else
             {
                 player.leg1 = player.leg1 - player.pace;
                 player.MilesTraveled += player.pace;
-            }
-
-            //if(player.MilesTraveled == )
-            
+                
+            }            
         }
-
-        public static void ArivingAtLandmark()
-        {
-
-        }
-
+       
         public static void Status(Player player)
         {
             Console.BackgroundColor = ConsoleColor.White;
@@ -138,18 +151,20 @@ namespace TheOregonTrail
 
         public static void Cycle(Game game, Player player, Shop shop)
         {
+            //List<Landmarks> TempMiles = 
             List<int> TempMiles = game.GetMiles(player);
             List<string> TempLegs = game.GetLegs(player);
-            player.MilesToNextLandmark = TempMiles[player.IndexForMiles];
+            player.MilesToNextLandmark = TempMiles[player.IndexForLandmarks];
             player.Landmark = TempLegs[player.IndexForLegs];
             player.NextLandmark = TempLegs[player.IndexForLegs + 1];
-            player.AtFort = false;
 
+            player.AtFort = false;
+            
             while (player.Traveling)
             {
                 if(player.InitLeg)
                 {
-                    player.leg1 = TempMiles[player.IndexForMiles];
+                    player.leg1 = TempMiles[player.IndexForLandmarks];
                     player.InitLeg = false;
                 }
                 Console.Clear();
@@ -164,22 +179,23 @@ namespace TheOregonTrail
                 }
                 
                 Status(player);
-                if (player.AtLandmark)
+                if (player.LeavingALandmark)
                 {
                     InputDetection.SpaceOrYes(game, player, shop);
-
-                    //string input = Console.ReadLine();
-                    //if (input == "y" || input == "Y")
-                    //{
-                    //    ShowKansasRiverCrossing(player);
-                    //    PrintGameMenu(game, player, shop);
-                    //}
+                    player.LeavingALandmark = false;
+                    
                 }
                 if (player.leg1 <= 0)
                 {
-                    var i = TempMiles[player.IndexForMiles];
+                    player.IndexForLegs += 1;
+                    player.IndexForLandmarks += 1;
+                    var i = TempMiles[player.IndexForLandmarks];
                     player.MilesToNextLandmark = i;
-                    player.AtLandmark = true;
+                    player.Landmark = TempLegs[player.IndexForLandmarks];
+                    //player.AtLandmark = true;
+                    //player.ArrivingLanmark = true;
+                    player.InitLeg = true;
+                    player.ArrivingLanmark = true;
                 }
                 
                 else
@@ -191,7 +207,7 @@ namespace TheOregonTrail
                     player.poundsOfFoods -= player.teamSize * player.rations;
                     CalculateMilesOfLeg(game, player);
                     player.AtLandmark = false;
-                    
+
                 }
                 
                 if (!player.AtLandmark)
@@ -209,14 +225,17 @@ namespace TheOregonTrail
                 }
             }
             player.insidecycle = false;
-            ArivingAtLandmark();
+            ///ArivingAtLandmark();
+
+            player.IndexForLandmarks += 1;
+            player.IndexForLegs += 1;
         }
 
-        public static void ShowKansasRiverCrossing(Player player)
+        public static void ShowRiverCrossing(Player player)
         {
             Console.Clear();
-            Console.WriteLine("Beautiful Picture of Kansas River cossing");
-            Console.WriteLine("         Kansas River cossing");
+            Console.WriteLine("Beautiful Picture of {0}", player.Landmark);
+            Console.WriteLine("         {0}", player.Landmark);
             headerWithDate(player);
             InputDetection.Space();
         }
@@ -338,19 +357,19 @@ namespace TheOregonTrail
             Console.WriteLine("Which number?");
         }
 
-        public static void KansasRiverCrossing(Game game, Player player, Shop shop)
+        public static void RiverCrossing(Game game, Player player, Shop shop)
         {
-            if(!player.krc)
+            if (player.Landmark.EndsWith("crossing"));
             {
                 Console.Clear();
-                Console.WriteLine("Kansas River crossing");
+                Console.WriteLine("{0}", player.Landmark);
                 headerWithDate(player);
                 Console.WriteLine("");
                 Console.WriteLine("You must cross the river in");
                 Console.WriteLine("order to continue. The");
                 Console.WriteLine("river at this point is ");
-                Console.WriteLine("currently 642 feet across,");
-                Console.WriteLine("and 6.7 feet deep in the");
+                Console.WriteLine("currently {0} feet across,", player.riverWidth);
+                Console.WriteLine("and {0} feet deep in the", player.riverDepth);
                 Console.WriteLine("middle");
                 Console.WriteLine("");
                 InputDetection.Space();
@@ -359,7 +378,7 @@ namespace TheOregonTrail
             
 
             Console.Clear();
-            Console.WriteLine("Kansas River crossing");
+            Console.WriteLine("{0}", player.Landmark);
             headerWithDate(player);
             Console.WriteLine("");
             Console.WriteLine("Weather: {0}     ", player.weather);
@@ -387,7 +406,7 @@ namespace TheOregonTrail
             }
             if (game.gameMenuInput == "D3")
             {
-                TakeFerry(player);
+                TakeFerry(game, player, shop);
             }
             if (game.gameMenuInput == "D4")
             {
@@ -397,7 +416,7 @@ namespace TheOregonTrail
             {
                 GetMoreInfo(game, player, shop);
             }
-            KansasRiverCrossing(game, player, shop);
+            RiverCrossing(game, player, shop);
         }
 
         public static void Ford(Game game, Player player, Shop shop)
@@ -412,7 +431,7 @@ namespace TheOregonTrail
             Console.WriteLine("CaulkTheWagon");
             InputDetection.Space();
         }
-        public static void TakeFerry(Player player)
+        public static void TakeFerry(Game game, Player player, Shop shop)
         {
             Console.Clear();
             Console.WriteLine("Kansas River crossing");
@@ -426,13 +445,33 @@ namespace TheOregonTrail
             string takeFerry = Console.ReadLine();
             if (takeFerry == "y" || takeFerry == "yes")
             {
-                Console.Clear();
-                Console.WriteLine("Taking the ferry!");
-                System.Threading.Thread.Sleep(4000);
-                Console.Clear();
-                Console.WriteLine("The Ferry got your party");
-                Console.WriteLine("and wagon safely across.");
-                InputDetection.Space();
+                if(player.money < 5)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Kansas River crossing");
+                    headerWithDate(player);
+                    Console.WriteLine("");
+                    Console.WriteLine("You do not have enough");
+                    Console.WriteLine("money to pay for the ferry.");
+                    Console.WriteLine("");
+                    InputDetection.Space();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Taking the ferry!");
+                    System.Threading.Thread.Sleep(1000);
+                    Console.Clear();
+                    Console.WriteLine("The Ferry got your party");
+                    Console.WriteLine("and wagon safely across.");
+                    InputDetection.Space();
+                    //TODO goto next cycle
+                    player.LeavingALandmark = true;
+                    player.IndexForLandmarks += 1;
+                    player.IndexForLegs += 1;
+                    player.InitLeg = true;
+                    Cycle(game, player, shop);
+                }                
             }
         }
         public static void WaitToSee(Player player)
@@ -485,14 +524,24 @@ namespace TheOregonTrail
             Console.WriteLine("across the river");
             Console.WriteLine("");
             InputDetection.Space();
-            KansasRiverCrossing(game, player, shop);
+            RiverCrossing(game, player, shop);
         }
 
         public static void PrintGameMenu(Game game, Player player, Shop shop)
         {
-            while(game.GameMenu)
+            //List<int> TempMiles = game.GetMiles(player);
+            //List<string> TempLegs = game.GetLegs(player);
+            //player.MilesToNextLandmark = TempMiles[player.IndexForLandmarks];
+            //player.Landmark = TempLegs[player.IndexForLegs];
+            //player.NextLandmark = TempLegs[player.IndexForLegs + 1];
+            while (game.GameMenu)
             {
-                PlaceAt();
+                Console.Clear();
+                if(player.AtLandmark)
+                {
+                    PlaceAt(player);
+                }
+                
                 headerWithDate(player);
                 StatusBar(game, player);
                 Console.WriteLine("You may:");
@@ -525,7 +574,7 @@ namespace TheOregonTrail
                     }
                     if(player.MilesTraveled == 102)
                     {
-                        KansasRiverCrossing(game, player, shop);
+                        RiverCrossing(game, player, shop);
                         break;
                     }
                 }

@@ -62,7 +62,7 @@ namespace TheOregonTrail
             if (input == 3)
             {
                 player.occupation = "Farmer";
-                player.money = 400;
+                player.money = 0;//TODO change to 400 for not debuging
             }
             if (input == 4)
             {

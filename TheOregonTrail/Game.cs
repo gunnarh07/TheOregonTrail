@@ -14,13 +14,12 @@ namespace TheOregonTrail
         
         public bool GameIsOn = true;
         public bool GameMenu = true;
-        int index = 0;
 
         List<int> Miles = new List<int>(new int[] { 102, 82, 118, 250, 86, 190, 102, 57, 125, 143, 57, 182, 113, 999, 160, 55, 999, 999, 999, 100 });
 
         List<string> Landmarks = new List<string>(new string[] {"Independence",
-                                                                "Kansas River",
-                                                                "Big Blue River",
+                                                                "Kansas River crossing",
+                                                                "Big Blue River crossing",
                                                                 "Fort Kearney",
                                                                 "Chimney Rock",
                                                                 "Fort Laramie",

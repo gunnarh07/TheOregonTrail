@@ -10,10 +10,38 @@ namespace TheOregonTrail
     {
           static void Main(string[] args)
         {
+            //INIT
             Player player = new Player();
             Shop shop = new Shop();
             Game game = new Game();
+            //init each lanmarks
+            Landmarks L1 = new Landmarks();
+            L1.Name = "Independence";
+            L1.Shop = true;
+            L1.Ferry = true;
 
+            Landmarks L2 = new Landmarks();
+            L2.Name = "Kansas River crossing";
+            L2.Shop = true;
+            L2.Ferry = true;
+
+            Landmarks L3 = new Landmarks();
+            L3.Name = "Big Blue River crossing";
+            L3.Shop = true;
+            L3.Ferry = true;
+
+            Landmarks L4 = new Landmarks();
+            L4.Name = "Fort Kearney";
+            L4.Shop = true;
+            L4.Ferry = true;
+
+            List<Landmarks> listOfLandmarks = new List<Landmarks>();
+            listOfLandmarks.Add(L1);
+            listOfLandmarks.Add(L2);
+
+
+            TeamMembers Team = new TeamMembers();
+            
             var input = 1;
             if (player.debug)
             {

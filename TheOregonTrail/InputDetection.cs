@@ -49,7 +49,7 @@ namespace TheOregonTrail
             if (GameMenuInput.Key == ConsoleKey.Y)
             {
                 
-                GameMenu.ShowKansasRiverCrossing(player);
+                GameMenu.ShowRiverCrossing(player);
                 GameMenu.PrintGameMenu(game, player, shop);
                 
             }
