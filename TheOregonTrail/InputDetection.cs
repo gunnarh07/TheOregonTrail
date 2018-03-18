@@ -34,7 +34,9 @@ namespace TheOregonTrail
             player.playerInput = "";
         }
 
-        public static void SpaceOrYes(Game game, Player player, Shop shop)
+
+
+        public static void SpaceOrYes(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
             Console.WriteLine("     Press SPACE BAR to continue");
             ConsoleKeyInfo GameMenuInput = Console.ReadKey();            
@@ -46,12 +48,45 @@ namespace TheOregonTrail
                 //    //game.gameMenuInput = ConsoleKey.Spacebar.ToString();
                 //}
             }
+            
             if (GameMenuInput.Key == ConsoleKey.Y)
             {
-                
-                GameMenu.ShowRiverCrossing(player);
-                GameMenu.PrintGameMenu(game, player, shop);
-                
+                ConsoleKeyInfo c = Console.ReadKey();
+                if (c.Key == ConsoleKey.Enter)
+                {
+                    GameMenu.ShowRiverCrossing(player);
+                    GameMenu.PrintGameMenu(game, player, shop, listOfLandmarks);
+                }
+            }
+        }
+
+        public static void DetectGameMenuInputOneTwoOrThree(Game game, Player player, Shop shop)
+        {
+            ConsoleKeyInfo GameMenuInput = Console.ReadKey();
+
+            if (GameMenuInput.Key == ConsoleKey.D1)
+            {
+                ConsoleKeyInfo c = Console.ReadKey();
+                if (c.Key == ConsoleKey.Enter)
+                {
+                    game.gameMenuInput = ConsoleKey.D1.ToString();
+                }
+            }
+            if (GameMenuInput.Key == ConsoleKey.D2)
+            {
+                ConsoleKeyInfo c = Console.ReadKey();
+                if (c.Key == ConsoleKey.Enter)
+                {
+                    game.gameMenuInput = ConsoleKey.D2.ToString();
+                }
+            }
+            if (GameMenuInput.Key == ConsoleKey.D3)
+            {
+                ConsoleKeyInfo c = Console.ReadKey();
+                if (c.Key == ConsoleKey.Enter)
+                {
+                    game.gameMenuInput = ConsoleKey.D3.ToString();
+                }
             }
         }
 

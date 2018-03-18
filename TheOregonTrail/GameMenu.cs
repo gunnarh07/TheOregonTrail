@@ -43,7 +43,7 @@ namespace TheOregonTrail
             {
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine("     From {0} it is {1}", player.Landmark, player.leg1);
+                Console.WriteLine("     From {0} it is {1}", player.Landmark, player.theLeg);
                 Console.WriteLine("     miles to the {0}", player.NextLandmark);
                 player.ArrivingLanmark = false;
                 
@@ -120,17 +120,17 @@ namespace TheOregonTrail
 
         public static void CalculateMilesOfLeg(Game game, Player player)
         {
-            var TempNextLandmark = player.leg1;
+            var TempNextLandmark = player.theLeg;
             var tempMiles = TempNextLandmark - player.pace;
             if (tempMiles <= 0)
             {
-                player.MilesTraveled += player.leg1;
-                player.leg1 = 0;
+                player.MilesTraveled += player.theLeg;
+                player.theLeg = 0;
                 
             }
             else
             {
-                player.leg1 = player.leg1 - player.pace;
+                player.theLeg = player.theLeg - player.pace;
                 player.MilesTraveled += player.pace;
                 
             }            
@@ -144,19 +144,54 @@ namespace TheOregonTrail
             Console.WriteLine("           Weather: {0}     ", player.weather);
             Console.WriteLine("            Health: {0}     ", player.health);
             Console.WriteLine("              Food: {0}      ", player.poundsOfFoods);
-            Console.WriteLine("     Next Landmark: {0}      ", player.leg1);
+            Console.WriteLine("     Next Landmark: {0}      ", player.theLeg);
             Console.WriteLine("    Miles Traveled: {0}        ", player.MilesTraveled);
             Console.ResetColor();
         }
 
-        public static void Cycle(Game game, Player player, Shop shop)
+        public static void Alternate(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
-            //List<Landmarks> TempMiles = 
+            Console.Clear();
+            Console.WriteLine("The trail divides here. You may:");
+            Console.WriteLine("");
+            Console.WriteLine("1. head for Green River crossing");
+            Console.WriteLine("2. head for Fort Bridger");
+            Console.WriteLine("3. see the map");
+            Console.WriteLine("");
+            Console.WriteLine("What is your choice?");
+            InputDetection.DetectGameMenuInputOneTwoOrThree(game, player, shop);
+            if(game.gameMenuInput == "D1")
+            {
+                //DoNothing
+                player.alternateRoute = true;
+            }
+            if (game.gameMenuInput == "D2")
+            {
+                //index for landmarks +1
+                player.IndexForLandmarks += 1;
+                
+            }
+            if (game.gameMenuInput == "D3")
+            {
+                Map(player);//TODO
+            }
+
+        }
+
+    public static void Cycle(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)//, Program program)
+        {
+            //List<Landmarks> TempLandmarks = new List<Landmarks>;
+            //TempLandmarks = 
+            if(player.alternateRoute)
+            {
+                player.IndexForLandmarks += 1;
+                player.alternateRoute = false;
+            }
             List<int> TempMiles = game.GetMiles(player);
             List<string> TempLegs = game.GetLegs(player);
             player.MilesToNextLandmark = TempMiles[player.IndexForLandmarks];
-            player.Landmark = TempLegs[player.IndexForLegs];
-            player.NextLandmark = TempLegs[player.IndexForLegs + 1];
+            player.Landmark = TempLegs[player.IndexForLandmarks];
+            player.NextLandmark = TempLegs[player.IndexForLandmarks + 1];
 
             player.AtFort = false;
             
@@ -164,7 +199,7 @@ namespace TheOregonTrail
             {
                 if(player.InitLeg)
                 {
-                    player.leg1 = TempMiles[player.IndexForLandmarks];
+                    player.theLeg = TempMiles[player.IndexForLandmarks];
                     player.InitLeg = false;
                 }
                 Console.Clear();
@@ -181,21 +216,18 @@ namespace TheOregonTrail
                 Status(player);
                 if (player.LeavingALandmark)
                 {
-                    InputDetection.SpaceOrYes(game, player, shop);
+                    InputDetection.SpaceOrYes(game, player, shop, listOfLandmarks);
                     player.LeavingALandmark = false;
-                    
                 }
-                if (player.leg1 <= 0)
+                if (player.theLeg <= 0)
                 {
-                    player.IndexForLegs += 1;
                     player.IndexForLandmarks += 1;
                     var i = TempMiles[player.IndexForLandmarks];
                     player.MilesToNextLandmark = i;
                     player.Landmark = TempLegs[player.IndexForLandmarks];
-                    //player.AtLandmark = true;
-                    //player.ArrivingLanmark = true;
                     player.InitLeg = true;
                     player.ArrivingLanmark = true;
+                    player.LegMiles = player.MilesToNextLandmark;
                 }
                 
                 else
@@ -218,17 +250,13 @@ namespace TheOregonTrail
                         if (Console.ReadKey(true).Key == ConsoleKey.Enter)
                         {
                             player.insidecycle = true;
-                            PrintGameMenu(game, player, shop);
+                            PrintGameMenu(game, player, shop, listOfLandmarks);
                         }
                     }
                     System.Threading.Thread.Sleep(1000);
                 }
             }
             player.insidecycle = false;
-            ///ArivingAtLandmark();
-
-            player.IndexForLandmarks += 1;
-            player.IndexForLegs += 1;
         }
 
         public static void ShowRiverCrossing(Player player)
@@ -356,8 +384,9 @@ namespace TheOregonTrail
             Console.WriteLine("You have ${0} to spend.", player.money);
             Console.WriteLine("Which number?");
         }
+        
 
-        public static void RiverCrossing(Game game, Player player, Shop shop)
+        public static void RiverCrossing(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
             if (player.Landmark.EndsWith("crossing"));
             {
@@ -389,11 +418,21 @@ namespace TheOregonTrail
             Console.WriteLine("");
             Console.WriteLine("1. attempt to ford the river.");
             Console.WriteLine("2. caulk the wagon and float it accross");
-            Console.WriteLine("3. take a ferry across");
-            Console.WriteLine("4. wait to see if condition improve");
-            Console.WriteLine("5. get more information");
+            if(listOfLandmarks[player.IndexForLandmarks].Ferry)
+            {
+                Console.WriteLine("3. take a ferry across");
+                Console.WriteLine("4. wait to see if condition improve");
+                Console.WriteLine("5. get more information");
+            }
+            else
+            {
+                Console.WriteLine("3. wait to see if condition improve");
+                Console.WriteLine("4. get more information");
+            }
+
             Console.WriteLine("");
             Console.WriteLine("What is your choice?");
+
             InputDetection.DetectGameMenuInput(game, player, shop);
             
             if (game.gameMenuInput == "D1")
@@ -402,11 +441,11 @@ namespace TheOregonTrail
             }
             if (game.gameMenuInput == "D2")
             {
-                CaulkTheWagon(game, player, shop);
+                CaulkTheWagon(game, player, shop, listOfLandmarks);
             }
             if (game.gameMenuInput == "D3")
             {
-                TakeFerry(game, player, shop);
+                TakeFerry(game, player, shop, listOfLandmarks);
             }
             if (game.gameMenuInput == "D4")
             {
@@ -414,9 +453,9 @@ namespace TheOregonTrail
             }
             if (game.gameMenuInput == "D5")
             {
-                GetMoreInfo(game, player, shop);
+                GetMoreInfo(game, player, shop, listOfLandmarks);
             }
-            RiverCrossing(game, player, shop);
+            RiverCrossing(game, player, shop, listOfLandmarks);
         }
 
         public static void Ford(Game game, Player player, Shop shop)
@@ -425,13 +464,21 @@ namespace TheOregonTrail
             Console.WriteLine("Ford");
             InputDetection.Space();
         }
-        public static void CaulkTheWagon(Game game, Player player, Shop shop)
+        public static void CaulkTheWagon(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
             Console.Clear();
-            Console.WriteLine("CaulkTheWagon");
+            Console.WriteLine("Caulk the wagon!");
+            System.Threading.Thread.Sleep(1000);
+            Console.Clear();
+            Console.WriteLine("You had no trouble");
+            Console.WriteLine("floating the wagon");
+            Console.WriteLine("across.");
             InputDetection.Space();
+            player.LeavingALandmark = true;
+            player.InitLeg = true;
+            Cycle(game, player, shop, listOfLandmarks);
         }
-        public static void TakeFerry(Game game, Player player, Shop shop)
+        public static void TakeFerry(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
             Console.Clear();
             Console.WriteLine("Kansas River crossing");
@@ -465,19 +512,16 @@ namespace TheOregonTrail
                     Console.WriteLine("The Ferry got your party");
                     Console.WriteLine("and wagon safely across.");
                     InputDetection.Space();
-                    //TODO goto next cycle
                     player.LeavingALandmark = true;
-                    player.IndexForLandmarks += 1;
-                    player.IndexForLegs += 1;
                     player.InitLeg = true;
-                    Cycle(game, player, shop);
+                    Cycle(game, player, shop, listOfLandmarks);
                 }                
             }
         }
         public static void WaitToSee(Player player)
         {
             Console.Clear();
-            Console.WriteLine("Kansas River crossing");
+            Console.WriteLine("{0}", player.Landmark);
             headerWithDate(player);
             Console.WriteLine("");
             Console.WriteLine("You camp near the river for a day.");
@@ -486,10 +530,10 @@ namespace TheOregonTrail
             player.date = player.date.AddDays(1);
 
         }
-        public static void GetMoreInfo(Game game, Player player, Shop shop)
+        public static void GetMoreInfo(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
             Console.Clear();
-            Console.WriteLine("Kansas River crossing");
+            Console.WriteLine("{0}", player.Landmark);
             headerWithDate(player);
             Console.WriteLine("");
             Console.WriteLine("To ford a river means to");
@@ -501,7 +545,7 @@ namespace TheOregonTrail
             InputDetection.Space();
 
             Console.Clear();
-            Console.WriteLine("Kansas River crossing");
+            Console.WriteLine("{0}", player.Landmark);
             headerWithDate(player);
             Console.WriteLine("");
             Console.WriteLine("To caulk the wagon means to");
@@ -513,7 +557,7 @@ namespace TheOregonTrail
             InputDetection.Space();
 
             Console.Clear();
-            Console.WriteLine("Kansas River crossing");
+            Console.WriteLine("{0}", player.Landmark);
             headerWithDate(player);
             Console.WriteLine("");
             Console.WriteLine("To use ferry means to put");
@@ -524,16 +568,11 @@ namespace TheOregonTrail
             Console.WriteLine("across the river");
             Console.WriteLine("");
             InputDetection.Space();
-            RiverCrossing(game, player, shop);
+            RiverCrossing(game, player, shop, listOfLandmarks);
         }
 
-        public static void PrintGameMenu(Game game, Player player, Shop shop)
+        public static void PrintGameMenu(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
-            //List<int> TempMiles = game.GetMiles(player);
-            //List<string> TempLegs = game.GetLegs(player);
-            //player.MilesToNextLandmark = TempMiles[player.IndexForLandmarks];
-            //player.Landmark = TempLegs[player.IndexForLegs];
-            //player.NextLandmark = TempLegs[player.IndexForLegs + 1];
             while (game.GameMenu)
             {
                 Console.Clear();
@@ -553,7 +592,7 @@ namespace TheOregonTrail
                 Console.WriteLine("     6. Stop to rest");
                 Console.WriteLine("     7. Attempt to trade");
                 Console.WriteLine("     8. Talk to people");
-                if(player.AtFort)
+                if(listOfLandmarks[player.IndexForLandmarks].Shop)
                 {
                     Console.WriteLine("     9. Buy supplies");
                 }
@@ -568,15 +607,107 @@ namespace TheOregonTrail
                 }
                 if (game.gameMenuInput == "D1")
                 {
-                    if(player.MilesTraveled == 0)
+                    if(player.Landmark == "Independence")
                     {
-                        Cycle(game, player, shop);
+                        Cycle(game, player, shop, listOfLandmarks);
                     }
-                    if(player.MilesTraveled == 102)
+                    if(player.Landmark == "Kansas River crossing")
                     {
-                        RiverCrossing(game, player, shop);
+                        RiverCrossing(game, player, shop, listOfLandmarks);
                         break;
                     }
+                    if (player.Landmark == "Big Blue River crossing")
+                    {
+                        RiverCrossing(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Fort Kearney")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Chimney Rock")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Fort Laramie")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Indipendence Rock")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "South Pass")
+                    {
+                        Alternate(game, player, shop, listOfLandmarks);
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Green river")
+                    {
+                        RiverCrossing(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Fort Bridger")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Soda Springs")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Fort Hall")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Snake River")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Fort Boise")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Blue Mountains")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Fort WALLA WALLA")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "The Dalles")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Columbia River George")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Barlow Road")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+                    if (player.Landmark == "Willameete Valley Oregon")
+                    {
+                        Cycle(game, player, shop, listOfLandmarks);
+                        break;
+                    }
+
                 }
                 if (game.gameMenuInput == "D2")
                 {
