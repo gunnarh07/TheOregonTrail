@@ -12,10 +12,10 @@ namespace TheOregonTrail
         public bool Shop;
         public bool Ferry;
         public int Distance;
+        public int DistanceToNextLandmark;
         public bool Alternate;
         public float RiverDepth;
-        public int RiverWidth;
-        
+        public int RiverWidth;        
     }
 
     

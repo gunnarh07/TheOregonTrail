@@ -42,11 +42,8 @@ namespace TheOregonTrail
             ConsoleKeyInfo GameMenuInput = Console.ReadKey();            
             if (GameMenuInput.Key == ConsoleKey.Spacebar)
             {
-                //ConsoleKeyInfo c = Console.ReadKey();
-                //if (c.Key == ConsoleKey.Spacebar)
-                //{
-                //    //game.gameMenuInput = ConsoleKey.Spacebar.ToString();
-                //}
+                //GameMenu.ShowRiverCrossing(player);
+                //GameMenu.PrintGameMenu(game, player, shop, listOfLandmarks);
             }
             
             if (GameMenuInput.Key == ConsoleKey.Y)
@@ -64,12 +61,13 @@ namespace TheOregonTrail
         {
             ConsoleKeyInfo GameMenuInput = Console.ReadKey();
 
+
             if (GameMenuInput.Key == ConsoleKey.D1)
             {
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D1.ToString();
+                    player.gameMenuInput = ConsoleKey.D1.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D2)
@@ -77,7 +75,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D2.ToString();
+                    player.gameMenuInput = ConsoleKey.D2.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D3)
@@ -85,7 +83,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D3.ToString();
+                    player.gameMenuInput = ConsoleKey.D3.ToString();
                 }
             }
         }
@@ -99,7 +97,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D1.ToString();
+                    player.gameMenuInput = ConsoleKey.D1.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D2)
@@ -107,7 +105,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D2.ToString();
+                    player.gameMenuInput = ConsoleKey.D2.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D3)
@@ -115,7 +113,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D3.ToString();
+                    player.gameMenuInput = ConsoleKey.D3.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D4)
@@ -123,7 +121,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D4.ToString();
+                    player.gameMenuInput = ConsoleKey.D4.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D5)
@@ -131,7 +129,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D5.ToString();
+                    player.gameMenuInput = ConsoleKey.D5.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D6)
@@ -139,7 +137,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D6.ToString();
+                    player.gameMenuInput = ConsoleKey.D6.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D7)
@@ -147,7 +145,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D7.ToString();
+                    player.gameMenuInput = ConsoleKey.D7.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D8)
@@ -155,7 +153,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D8.ToString();
+                    player.gameMenuInput = ConsoleKey.D8.ToString();
                 }
             }
             if (GameMenuInput.Key == ConsoleKey.D9)
@@ -163,7 +161,7 @@ namespace TheOregonTrail
                 ConsoleKeyInfo c = Console.ReadKey();
                 if (c.Key == ConsoleKey.Enter)
                 {
-                    game.gameMenuInput = ConsoleKey.D9.ToString();
+                    player.gameMenuInput = ConsoleKey.D9.ToString();
                 }
             }
 

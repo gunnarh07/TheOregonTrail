@@ -8,11 +8,11 @@ namespace TheOregonTrail
 {
     class GameMenu
     {
-        public static void PlaceAt(Player player)
-        {
-            Console.Clear();
-            Console.WriteLine("            {0}", player.Landmark);
-        }
+        //public static void PlaceAt(Player player)
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("            {0}", player.Landmark);
+        //}
 
         public static void headerWithDate(Player player)
         {
@@ -37,14 +37,24 @@ namespace TheOregonTrail
             headerWithDate(player);
         }
 
-        public static void Message(Player player)
+        public static void Message(Player player, List<Landmarks> listOfLandmarks)
         {
             if(player.AtLandmark)
             {
                 Console.WriteLine("");
                 Console.WriteLine("");
                 Console.WriteLine("     From {0} it is {1}", player.Landmark, player.theLeg);
-                Console.WriteLine("     miles to the {0}", player.NextLandmark);
+                Console.WriteLine("     miles to the {0}", listOfLandmarks[player.IndexForLandmarks + 1].Name);
+                //if (player.greenRiverCrossing)
+                //{
+                //    Console.WriteLine("     miles to the {0}", listOfLandmarks[player.IndexForLandmarks + 1].Name);
+                //    player.greenRiverCrossing = false;
+                //}
+                //else
+                //{
+                //    Console.WriteLine("     miles to the {0}", listOfLandmarks[player.IndexForLandmarks + 1].Name);
+                //}
+
                 player.ArrivingLanmark = false;
                 
                 
@@ -53,7 +63,7 @@ namespace TheOregonTrail
             {
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine("     You are now at the {0}.", player.NextLandmark);
+                Console.WriteLine("     You are now at the {0}.", player.Landmark);
                 Console.WriteLine("     Would you like to look around");
                 player.AtLandmark = true;
                 player.LeavingALandmark = true;
@@ -118,24 +128,6 @@ namespace TheOregonTrail
             Console.WriteLine("");
         }
 
-        public static void CalculateMilesOfLeg(Game game, Player player)
-        {
-            var TempNextLandmark = player.theLeg;
-            var tempMiles = TempNextLandmark - player.pace;
-            if (tempMiles <= 0)
-            {
-                player.MilesTraveled += player.theLeg;
-                player.theLeg = 0;
-                
-            }
-            else
-            {
-                player.theLeg = player.theLeg - player.pace;
-                player.MilesTraveled += player.pace;
-                
-            }            
-        }
-       
         public static void Status(Player player)
         {
             Console.BackgroundColor = ConsoleColor.White;
@@ -149,7 +141,7 @@ namespace TheOregonTrail
             Console.ResetColor();
         }
 
-        public static void Alternate(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
+        public static void Alternate1(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
             Console.Clear();
             Console.WriteLine("The trail divides here. You may:");
@@ -160,53 +152,133 @@ namespace TheOregonTrail
             Console.WriteLine("");
             Console.WriteLine("What is your choice?");
             InputDetection.DetectGameMenuInputOneTwoOrThree(game, player, shop);
-            if(game.gameMenuInput == "D1")
+            if(player.gameMenuInput == "D1")
             {
                 //DoNothing
                 player.alternateRoute = true;
+                player.greenRiverCrossing = true;
             }
-            if (game.gameMenuInput == "D2")
+            if (player.gameMenuInput == "D2")
             {
                 //index for landmarks +1
-                player.IndexForLandmarks += 1;
-                
+                player.greenRiverCrossing = false;
+                player.fortBridger = true;
             }
-            if (game.gameMenuInput == "D3")
+            if (player.gameMenuInput == "D3")
             {
                 Map(player);//TODO
             }
 
         }
 
-    public static void Cycle(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)//, Program program)
+        public static void Alternate2(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
-            //List<Landmarks> TempLandmarks = new List<Landmarks>;
-            //TempLandmarks = 
-            if(player.alternateRoute)
+            Console.Clear();
+            Console.WriteLine("The trail divides here. You may:");
+            Console.WriteLine("");
+            Console.WriteLine("1. head for Fort Walla Walla");
+            Console.WriteLine("2. head for The Dalles");
+            Console.WriteLine("3. see the map");
+            Console.WriteLine("");
+            Console.WriteLine("What is your choice?");
+            InputDetection.DetectGameMenuInputOneTwoOrThree(game, player, shop);
+            if (player.gameMenuInput == "D1")
             {
-                player.IndexForLandmarks += 1;
-                player.alternateRoute = false;
+                //DoNothing
+                player.alternateRoute = true;
+                player.fortWallaWalla = true;
             }
-            List<int> TempMiles = game.GetMiles(player);
-            List<string> TempLegs = game.GetLegs(player);
-            player.MilesToNextLandmark = TempMiles[player.IndexForLandmarks];
-            player.Landmark = TempLegs[player.IndexForLandmarks];
-            player.NextLandmark = TempLegs[player.IndexForLandmarks + 1];
+            if (player.gameMenuInput == "D2")
+            {
+                //index for landmarks +1
+                player.fortWallaWalla = false;
+                player.theDalles = true;
+            }
+            if (player.gameMenuInput == "D3")
+            {
+                Map(player);//TODO
+            }
+        }
 
+        public static void Cycle(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)//, Program program)
+        {
+            
+            
             player.AtFort = false;
             
             while (player.Traveling)
             {
                 if(player.InitLeg)
                 {
-                    player.theLeg = TempMiles[player.IndexForLandmarks];
+                    player.theLeg = listOfLandmarks[player.IndexForLandmarks].DistanceToNextLandmark;
                     player.InitLeg = false;
+                }
+                else
+                {
+                    if (player.theLeg <= 0)
+                    {
+                        player.IndexForLandmarks += 1;
+                        var i = listOfLandmarks[player.IndexForLandmarks].DistanceToNextLandmark;
+                        player.MilesToNextLandmark = i;
+                        player.Landmark = listOfLandmarks[player.IndexForLandmarks].Name;
+                        player.InitLeg = true;
+                        player.ArrivingLanmark = true;
+                        player.LegMiles = player.MilesToNextLandmark;
+                    }
+
+                    else
+                    {
+                        //calculates miles traveled
+                        //player.pace = player.
+                        //food consumed
+                        player.date = player.date.AddDays(1);
+                        player.poundsOfFoods -= player.teamSize * player.rations;
+                        var TempNextLandmark = player.theLeg;
+
+                        var tempMiles = TempNextLandmark - player.pace;
+                        if (tempMiles <= 0)
+                        {
+                            player.MilesTraveled += player.theLeg;
+                            player.theLeg = 0;
+                        }
+                        else
+                        {
+                            player.theLeg = player.theLeg - player.pace;
+                            player.MilesTraveled += player.pace;
+                        }
+                        player.AtLandmark = false;
+                    }
+                }
+
+                if (player.greenRiverCrossing)
+                {
+                    player.IndexForLandmarks += 2;
+                    player.theLeg = listOfLandmarks[8].DistanceToNextLandmark;
+                    player.greenRiverCrossing = false;
+                }
+                if (player.fortBridger)
+                {
+                    player.IndexForLandmarks += 1;
+                    player.theLeg = listOfLandmarks[9].Distance;
+                    player.fortBridger = false;
+                }
+
+                if (player.fortWallaWalla)
+                {
+                    //player.IndexForLandmarks += 1;
+                    player.theLeg = listOfLandmarks[15].DistanceToNextLandmark;
+                    player.fortWallaWalla = false;
+                }
+                if (player.theDalles)
+                {
+                    player.IndexForLandmarks += 1;
+                    player.theLeg = listOfLandmarks[9].Distance;
+                    player.theDalles = false;
                 }
                 Console.Clear();
                 if (player.ShowMessage)
                 {
-                    Message(player);
-                    //player.ShowMessage = false;
+                    Message(player, listOfLandmarks);
                 }
                 if(!player.AtLandmark)
                 {
@@ -219,28 +291,7 @@ namespace TheOregonTrail
                     InputDetection.SpaceOrYes(game, player, shop, listOfLandmarks);
                     player.LeavingALandmark = false;
                 }
-                if (player.theLeg <= 0)
-                {
-                    player.IndexForLandmarks += 1;
-                    var i = TempMiles[player.IndexForLandmarks];
-                    player.MilesToNextLandmark = i;
-                    player.Landmark = TempLegs[player.IndexForLandmarks];
-                    player.InitLeg = true;
-                    player.ArrivingLanmark = true;
-                    player.LegMiles = player.MilesToNextLandmark;
-                }
                 
-                else
-                {
-                    //calculates miles traveled
-                    //player.pace = player.
-                    //food consumed
-                    player.date = player.date.AddDays(1);
-                    player.poundsOfFoods -= player.teamSize * player.rations;
-                    CalculateMilesOfLeg(game, player);
-                    player.AtLandmark = false;
-
-                }
                 
                 if (!player.AtLandmark)
                 {
@@ -435,23 +486,23 @@ namespace TheOregonTrail
 
             InputDetection.DetectGameMenuInput(game, player, shop);
             
-            if (game.gameMenuInput == "D1")
+            if (player.gameMenuInput == "D1")
             {
                Ford(game, player, shop);
             }
-            if (game.gameMenuInput == "D2")
+            if (player.gameMenuInput == "D2")
             {
                 CaulkTheWagon(game, player, shop, listOfLandmarks);
             }
-            if (game.gameMenuInput == "D3")
+            if (player.gameMenuInput == "D3")
             {
                 TakeFerry(game, player, shop, listOfLandmarks);
             }
-            if (game.gameMenuInput == "D4")
+            if (player.gameMenuInput == "D4")
             {
                 WaitToSee(player);                
             }
-            if (game.gameMenuInput == "D5")
+            if (player.gameMenuInput == "D5")
             {
                 GetMoreInfo(game, player, shop, listOfLandmarks);
             }
@@ -576,11 +627,12 @@ namespace TheOregonTrail
             while (game.GameMenu)
             {
                 Console.Clear();
-                if(player.AtLandmark)
-                {
-                    PlaceAt(player);
-                }
-                
+                //if(player.AtLandmark)
+                //{
+                //    PlaceAt(player);
+                //}
+                Console.WriteLine("          {0}", listOfLandmarks[player.IndexForLandmarks].Name);
+
                 headerWithDate(player);
                 StatusBar(game, player);
                 Console.WriteLine("You may:");
@@ -601,11 +653,11 @@ namespace TheOregonTrail
                 Console.WriteLine("What is your choice?");
 
                 InputDetection.DetectGameMenuInput(game, player, shop);
-                if (game.gameMenuInput == "D1" && player.insidecycle == true)
+                if (player.gameMenuInput == "D1" && player.insidecycle == true)
                 {
                     break;
                 }
-                if (game.gameMenuInput == "D1")
+                if (player.gameMenuInput == "D1")
                 {
                     if(player.Landmark == "Independence")
                     {
@@ -643,7 +695,7 @@ namespace TheOregonTrail
                     }
                     if (player.Landmark == "South Pass")
                     {
-                        Alternate(game, player, shop, listOfLandmarks);
+                        Alternate1(game, player, shop, listOfLandmarks);
                         Cycle(game, player, shop, listOfLandmarks);
                         break;
                     }
@@ -679,6 +731,7 @@ namespace TheOregonTrail
                     }
                     if (player.Landmark == "Blue Mountains")
                     {
+                        Alternate2(game, player, shop, listOfLandmarks);
                         Cycle(game, player, shop, listOfLandmarks);
                         break;
                     }
@@ -709,35 +762,35 @@ namespace TheOregonTrail
                     }
 
                 }
-                if (game.gameMenuInput == "D2")
+                if (player.gameMenuInput == "D2")
                 {
                     CheckSupplies(player);
                 }
-                if (game.gameMenuInput == "D3")
+                if (player.gameMenuInput == "D3")
                 {
                     Map(player);
                 }
-                if (game.gameMenuInput == "D4")
+                if (player.gameMenuInput == "D4")
                 {
                     ChangePace(player);
                 }
-                if (game.gameMenuInput == "D5")
+                if (player.gameMenuInput == "D5")
                 {
                     ChangeFoodRations(player);
                 }
-                if (game.gameMenuInput == "D6")
+                if (player.gameMenuInput == "D6")
                 {
                     StopToRest(player);
                 }
-                if (game.gameMenuInput == "D7")
+                if (player.gameMenuInput == "D7")
                 {
                     AttemptToTrade(player);
                 }
-                if (game.gameMenuInput == "D8")
+                if (player.gameMenuInput == "D8")
                 {
                     TalkToPeople(player);
                 }
-                if (game.gameMenuInput == "D9")
+                if (player.gameMenuInput == "D9")
                 {
                     BuySupplies(player, shop);
                 }
