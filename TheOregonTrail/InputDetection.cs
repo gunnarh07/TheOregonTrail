@@ -36,7 +36,7 @@ namespace TheOregonTrail
 
 
 
-        public static void SpaceOrYes(Game game, Player player, Shop shop, List<Landmarks> listOfLandmarks)
+        public static void SpaceOrYes(Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
             Console.WriteLine("     Press SPACE BAR to continue");
             ConsoleKeyInfo GameMenuInput = Console.ReadKey();            
@@ -52,12 +52,35 @@ namespace TheOregonTrail
                 if (c.Key == ConsoleKey.Enter)
                 {
                     GameMenu.ShowRiverCrossing(player);
-                    GameMenu.PrintGameMenu(game, player, shop, listOfLandmarks);
+                    GameMenu.PrintGameMenu(player, shop, listOfLandmarks);
                 }
             }
         }
 
-        public static void DetectGameMenuInputOneTwoOrThree(Game game, Player player, Shop shop)
+        public static void DetectGameMenuInputOneOrTwo(Player player, Shop shop)
+        {
+            ConsoleKeyInfo GameMenuInput = Console.ReadKey();
+
+
+            if (GameMenuInput.Key == ConsoleKey.D1)
+            {
+                ConsoleKeyInfo c = Console.ReadKey();
+                if (c.Key == ConsoleKey.Enter)
+                {
+                    player.gameMenuInput = ConsoleKey.D1.ToString();
+                }
+            }
+            if (GameMenuInput.Key == ConsoleKey.D2)
+            {
+                ConsoleKeyInfo c = Console.ReadKey();
+                if (c.Key == ConsoleKey.Enter)
+                {
+                    player.gameMenuInput = ConsoleKey.D2.ToString();
+                }
+            }
+        }
+
+        public static void DetectGameMenuInputOneTwoOrThree(Player player, Shop shop)
         {
             ConsoleKeyInfo GameMenuInput = Console.ReadKey();
 
@@ -88,7 +111,7 @@ namespace TheOregonTrail
             }
         }
 
-        public static void DetectGameMenuInput(Game game, Player player, Shop shop)
+        public static void DetectGameMenuInput(Player player, Shop shop)
         {
             ConsoleKeyInfo GameMenuInput = Console.ReadKey();
 

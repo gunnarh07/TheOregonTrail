@@ -11,9 +11,25 @@ namespace TheOregonTrail
     {
         //public string weather = "cold";
 
+        //A Shoshoni guide says that he
+        //will take your wagon across
+        //the river in exchange for 2
+        //sets of clothing.
+        //
+        //Will you accept this
+        //offer?
+
+        //The Shoshoni guide will help
+        //you float your wagon across.
         
-        public bool GameIsOn = true;
-        public bool GameMenu = true;
+        //Congratulations! You have
+        //made it to Oregon! Let's
+        //see how many points you have
+        //recived.
+        //Willamwette Valley
+        //September 24, 1848
+        //Press SPACE BAR to continue
+
         //                                            1   2    3   4    5   6    7    8   9   10    11   12  13  14    15   16   17  18  19   20
         //List<int> Miles = new List<int>(new int[] { 102, 82, 118, 250, 86, 190, 102, 57, 125, 143, 57, 182, 113, 160, 55, 999, 999, 999, 100 });
 

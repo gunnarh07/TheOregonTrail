@@ -8,6 +8,9 @@ namespace TheOregonTrail
 {
     class Player
     {
+
+        public bool GameIsOn = true;
+        public bool GameMenu = true;
         //Default Constructor
 
         public string occupation;
@@ -75,6 +78,8 @@ namespace TheOregonTrail
         public bool fortBridger = false;
         public bool fortWallaWalla = false;
         public bool theDalles = false;
+        public bool BarlowTollRoad = false;
+        public bool ColumbiaRiver = false;
 
         public string gameMenuInput = "";
 

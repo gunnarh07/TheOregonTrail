@@ -129,34 +129,22 @@ namespace TheOregonTrail
             L16.Name = "Fort WALLA WALLA";
             L16.Shop = true;
             L16.Ferry = false;
-            L16.Distance = 160;
+            L16.Distance = 55;
             L16.DistanceToNextLandmark = 120;
 
             Landmarks L17 = new Landmarks();
             L17.Name = "The Dalles";
             L17.Shop = false;
             L17.Ferry = false;
-            L17.Distance = 55;
-            L17.DistanceToNextLandmark = 120;
+            L17.Distance = 125;
+            L17.DistanceToNextLandmark = 100;
 
-            //Landmarks L18 = new Landmarks();
-            //L18.Name = "Columbia River";
-            //L18.Shop = false;
-            //L18.Ferry = false;
-            //L18.Distance = 999;
-
-            //Landmarks L19 = new Landmarks();
-            //L19.Name = "Barlow Road";
-            //L19.Shop = false;
-            //L19.Ferry = false;
-            //L19.Distance = 999;
-
-            Landmarks L20 = new Landmarks();
-            L20.Name = "Willameete Valley Oregon";
-            L20.Shop = false;
-            L20.Ferry = false;
-            L20.Distance = 100;
-            L20.DistanceToNextLandmark = 0;
+            Landmarks L18 = new Landmarks();
+            L18.Name = "Willameete Valley Oregon";
+            L18.Shop = false;
+            L18.Ferry = false;
+            L18.Distance = 100;
+            L18.DistanceToNextLandmark = 0;
 
             List <Landmarks> listOfLandmarks = new List<Landmarks>();
             listOfLandmarks.Add(L1);
@@ -178,7 +166,7 @@ namespace TheOregonTrail
             listOfLandmarks.Add(L17);
             //listOfLandmarks.Add(L18);
             //listOfLandmarks.Add(L19);
-            listOfLandmarks.Add(L20);
+            listOfLandmarks.Add(L18);
 
 
 
@@ -232,7 +220,7 @@ namespace TheOregonTrail
                 InputDetection.Spacebar(shop);
             }
 
-            while (game.GameIsOn)
+            while (player.GameIsOn)
             {
                 //Console.Clear();
                 //Console.WriteLine("Independence");
@@ -245,7 +233,7 @@ namespace TheOregonTrail
                 player.Landmark = listOfLandmarks[player.IndexForLandmarks].Name;
 
 
-                GameMenu.PrintGameMenu(game, player, shop, listOfLandmarks);
+                GameMenu.PrintGameMenu(player, shop, listOfLandmarks);
             } 
         }
     }
