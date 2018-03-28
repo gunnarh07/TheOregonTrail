@@ -110,6 +110,8 @@ namespace TheOregonTrail
             L13.Ferry = false;
             L13.Distance = 182;
             L13.DistanceToNextLandmark = 113;
+            L9.RiverWidth = 1000;//random
+            L9.RiverDepth = 6.0F;//random
 
             Landmarks L14 = new Landmarks();
             L14.Name = "Fort Boise";
@@ -176,7 +178,7 @@ namespace TheOregonTrail
             if (player.debug)
             {
                 player.occupation = "Farmer";
-                player.money = 400;
+                player.money = 4;
                 player.name1 = "Gunni";
                 player.name2 = "Liney";
                 player.name3 = "Birta";
@@ -189,6 +191,7 @@ namespace TheOregonTrail
                 player.numberOfYokes = 2;
                 player.poundsOfFoods = 300;
                 player.setsOfClothing = 10;
+                player.money = 500;
                 player.ammo = 100;
                 player.spareParts = 3;
                 player.wagonWheel = 1;

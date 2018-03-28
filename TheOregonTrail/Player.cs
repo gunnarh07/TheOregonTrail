@@ -38,7 +38,8 @@ namespace TheOregonTrail
         public int wagonAxel = 0;
         public int wagonTounge = 0;
         public int spareParts;
-
+        public int wagon;
+        public int totalScore;
         public bool ShowMessage = true;
         /// <summary>
         /// debug
@@ -59,7 +60,7 @@ namespace TheOregonTrail
         public int LegMiles = 102;
         public int theLeg = 102;
         public int leg2 = 82;
-        public int IndexForLandmarks = 14;//------------------------
+        public int IndexForLandmarks = 0;//------------------------
         public int riverWidth = 642;   //655/649/644/640/636/632/629/626/623/621/619/617/615/614/612/611/610//609/608/607
         public float riverDepth = 6.7F;//8.4/7.6/7.0/6.4/5.8/5.3/4.9/4.5/4.2/3.8/3.6/3.3/3.1/2.9/2.7/2.5/2.4//2.2/2.1/2.0
         public string someName = "Someone";
@@ -70,6 +71,8 @@ namespace TheOregonTrail
         //ration pounds per team member
         public int rations = 3;
         public int someInt = 2;
+        public int someDays;
+        public string someStuff;
         public string playerInput;
         public bool LeavingALandmark = true;
         public bool insidecycle = false;
@@ -80,6 +83,7 @@ namespace TheOregonTrail
         public bool theDalles = false;
         public bool BarlowTollRoad = false;
         public bool ColumbiaRiver = false;
+        public bool WillametteValley = false;
 
         public string gameMenuInput = "";
 

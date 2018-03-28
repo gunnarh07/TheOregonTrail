@@ -8,12 +8,6 @@ namespace TheOregonTrail
 {
     class GameMenu
     {
-        //public static void PlaceAt(Player player)
-        //{
-        //    Console.Clear();
-        //    Console.WriteLine("            {0}", player.Landmark);
-        //}
-
         public static void headerWithDate(Player player)
         {
             string dateFormat = "MMMM d yyyy";
@@ -24,8 +18,8 @@ namespace TheOregonTrail
         {
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("   Weather: {0}              ", player.weather);
-            Console.WriteLine("   Health:  {0}              ", player.health);
+            Console.WriteLine("   Weather: {0}              ", player.weather);//snowy- cold-cool-rainy-warm-hot
+            Console.WriteLine("   Health:  {0}              ", player.health);//good fair
             Console.WriteLine("   Pace: {0}               ", player.steady);
             Console.WriteLine("   Rations: {0}           ", player.getRation(player));
             Console.ResetColor();
@@ -44,15 +38,12 @@ namespace TheOregonTrail
             {
                 Console.WriteLine("");
                 Console.WriteLine("");
-                //Console.WriteLine("     From {0} it is {1}", player.Landmark, player.theLeg);
-                ///Console.WriteLine("     miles to the {0}", listOfLandmarks[player.IndexForLandmarks + 1].Name);
                 if (player.greenRiverCrossing || player.fortWallaWalla || player.theDalles)
                 {
                     if (player.greenRiverCrossing)
                     {
                         Console.WriteLine("     From {0} it is {1}", player.Landmark, player.theLeg);
                         Console.WriteLine("     miles to the {0}", listOfLandmarks[8].Name);
-                        //player.greenRiverCrossing = false;
                     }
                     if (player.fortWallaWalla)
                     {
@@ -60,7 +51,7 @@ namespace TheOregonTrail
                         Console.WriteLine("     miles to the {0}", listOfLandmarks[player.IndexForLandmarks + 1].Name);
                         player.fortWallaWalla = false;
                     }
-                    //TODO taka burt og setja upp 'i fortwalllawalla
+                    //TODO taka burt og sameina fortwalllawalla
                     if (player.theDalles)
                     {
                         Console.WriteLine("     From {0} it is {1}", player.Landmark, player.theLeg);
@@ -87,8 +78,7 @@ namespace TheOregonTrail
                 Console.WriteLine("     You are now at the {0}.", player.Landmark);
                 Console.WriteLine("     Would you like to look around");
                 player.AtLandmark = true;
-                player.LeavingALandmark = true;
-                
+                player.LeavingALandmark = true;             
                 
             }
             if (player.gameEvent)
@@ -97,7 +87,15 @@ namespace TheOregonTrail
             }
             if (player.gameEvent)
             {
+                Console.WriteLine("     Heavy fog.");//10 miles
+            }
+            if (player.gameEvent)
+            {
                 Console.WriteLine("     Heavy fog. Lose 1 day.");
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     One of the oxen is injured");
             }
             if (player.gameEvent)
             {
@@ -109,15 +107,23 @@ namespace TheOregonTrail
             }
             if (player.gameEvent)
             {
-                Console.WriteLine("     {0} has a broken arm." , player.someName);
+                Console.WriteLine("     {0} is lost. Lose {1} days." , player.someName, player.someDays);// 5 days
             }
             if (player.gameEvent)
             {
-                Console.WriteLine("     {0} has a broken arm.", player.someName);
+                Console.WriteLine("     {0} has a broken arm.", player.someName);///change
             }
             if (player.gameEvent)
             {
                 Console.WriteLine("     Lose trail. Lose {0} days.", player.someInt);
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     wrong trail. Lose {0} days.", player.someInt);//2-4 days
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     Impassable trail. Lose {0} days.", player.someInt);//8 days
             }
             if (player.gameEvent)
             {
@@ -133,7 +139,54 @@ namespace TheOregonTrail
             }
             if (player.gameEvent)
             {
+                Console.WriteLine("     {0} has measles.", player.someName);
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     {0} has dysentery.", player.someName);
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     {0} has fever.", player.someName);
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     {0} is lost. Lose {1} days.", player.someName, player.someDays);
+            }
+            if (player.gameEvent)
+            {
                 Console.WriteLine("     Very little water.");
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     .");
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     Find wild fruit.");// 20 lbs + food
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     You find an abandoned wagon");
+                Console.WriteLine("     with the following:");
+                Console.WriteLine("     {0}", player.someStuff);
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     Fire in the wagon resault:");
+                Console.WriteLine("     {0}", player.someStuff);
+                Console.WriteLine("     {0}", player.someStuff);
+                Console.WriteLine("     {0}", player.someStuff);
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     A thief come during the night");
+                Console.WriteLine("     and steals 22 pounds of food.");
+            }
+            if (player.gameEvent)
+            {
+                Console.WriteLine("     You find an abandoned wagon");
+                Console.WriteLine("     but it is empty");
             }
             if (player.gameEvent)
             {
@@ -179,6 +232,7 @@ namespace TheOregonTrail
             Console.WriteLine("     Next Landmark: {0}      ", player.theLeg);
             Console.WriteLine("    Miles Traveled: {0}        ", player.MilesTraveled);
             Console.ResetColor();
+            //InputDetection.Spacebar(player);
         }
 
         public static void Alternate1(Player player, Shop shop, List<Landmarks> listOfLandmarks)
@@ -191,7 +245,7 @@ namespace TheOregonTrail
             Console.WriteLine("3. see the map");
             Console.WriteLine("");
             Console.WriteLine("What is your choice?");
-            InputDetection.DetectGameMenuInputOneTwoOrThree(player, shop);
+            InputDetection.DetectGameMenuInputOneTwoOrThree(player);
             if(player.gameMenuInput == "D1")
             {
                 //DoNothing
@@ -221,7 +275,7 @@ namespace TheOregonTrail
             Console.WriteLine("3. see the map");
             Console.WriteLine("");
             Console.WriteLine("What is your choice?");
-            InputDetection.DetectGameMenuInputOneTwoOrThree(player, shop);
+            InputDetection.DetectGameMenuInputOneTwoOrThree(player);
             if (player.gameMenuInput == "D1")
             {
                 //DoNothing
@@ -256,8 +310,23 @@ namespace TheOregonTrail
             }
             if (player.gameMenuInput == "D2")
             {
+                TakeBarlowTollRoad(player, shop, listOfLandmarks);
                 player.BarlowTollRoad = true;
             }
+        }
+        public static void Score(Player player)
+        {
+            Console.WriteLine("Points for arriving in Oregon");
+            Console.WriteLine("{0} people in {1} health       ", player.teamSize);
+            Console.WriteLine("{0} wagon                      ", player.wagon * 50);
+            Console.WriteLine("{0} oxen                       ", player.numberOfOxs * 5);
+            Console.WriteLine("{0} sets of clothing           ", player.setsOfClothing * 2);
+            Console.WriteLine("{0} bullets                    ", player.ammo /100 * 2);
+            Console.WriteLine("{0} pounds of food             ", player.poundsOfFoods / 100 * 4);
+            Console.WriteLine("${0} cash"                      , player.money / 5); // floor
+            Console.WriteLine("");
+            Console.WriteLine("Total:   {0}"                   , player.totalScore);
+            InputDetection.Spacebar(player);
         }
 
         public static void Cycle(Player player, Shop shop, List<Landmarks> listOfLandmarks)//, Program program)
@@ -275,6 +344,27 @@ namespace TheOregonTrail
                 {
                     if (player.theLeg <= 0)
                     {
+                        if(listOfLandmarks[player.IndexForLandmarks+1].Name == "Willameete Valley Oregon")
+                        {
+                            Console.Clear();
+                            Console.WriteLine("pic of valley");
+                            Console.WriteLine("");
+                            Console.WriteLine("");
+                            headerWithDate(player);
+                            InputDetection.Spacebar(player);
+
+                            Console.Clear();
+                            Console.WriteLine("     Congratulations! You have");
+                            Console.WriteLine("     made it to Oregon! Let's");
+                            Console.WriteLine("     see how many points you have");
+                            Console.WriteLine("     recived.");
+                            Console.WriteLine("      Willamwette Valley");
+                            Console.WriteLine("      September 24, 1848");
+                            InputDetection.Spacebar(player);
+                            player.Traveling = false;
+                            Score(player);
+                            break;
+                        }
                         player.IndexForLandmarks += 1;
                         var i = listOfLandmarks[player.IndexForLandmarks].DistanceToNextLandmark;
                         player.MilesToNextLandmark = i;
@@ -288,6 +378,10 @@ namespace TheOregonTrail
                             //player.theLeg = listOfLandmarks[7].DistanceToNextLandmark;
                             player.Landmark = listOfLandmarks[player.IndexForLandmarks].Name;
                             player.greenRiverCrossing = false;
+                        }
+                        if (player.WillametteValley)
+                        {
+                            
                         }
                     }
                     else
@@ -348,11 +442,32 @@ namespace TheOregonTrail
                 Status(player);
                 if (player.LeavingALandmark)
                 {
-                    InputDetection.SpaceOrYes(player, shop, listOfLandmarks);
-                    player.LeavingALandmark = false;
+                    if(player.ArrivingLanmark)
+                    {
+                        InputDetection.YesOrNo(player, shop, listOfLandmarks);
+                    }
+                    else
+                    {
+                        InputDetection.SpaceOrYes(player, shop, listOfLandmarks);
+                        player.LeavingALandmark = false;
+
+                    }
+                    if (player.gameMenuInput == "Y")
+                    {
+                        GameMenu.ShowRiverCrossing(player);
+                        GameMenu.PrintGameMenu(player, shop, listOfLandmarks);
+                    }
+                    if (player.gameMenuInput == "N")
+                    {
+                        GameMenu.PrintGameMenu(player, shop, listOfLandmarks);
+                    }
+                    if (player.gameMenuInput == "")
+                    {
+                        //GameMenu.PrintGameMenu(player, shop, listOfLandmarks);
+                    }
                 }
-                
-                
+
+
                 if (!player.AtLandmark)
                 {
 
@@ -425,11 +540,100 @@ namespace TheOregonTrail
             Console.WriteLine("         different paces mean");
             Console.WriteLine("");
             Console.WriteLine("     what is your choice?");
+
+            InputDetection.DetectGameMenuInputOneTwoThreeOrFour(player);
+            if (player.gameMenuInput == "D1")
+            {
+                player.pace = 20; //at best
+            }
+            if (player.gameMenuInput == "D2")
+            {
+                player.pace = 25;
+            }
+            if (player.gameMenuInput == "D3")
+            {
+                player.pace = 30;
+            }
+            if (player.gameMenuInput == "D4")
+            {
+                differentPacesmean(player);//TODO
+            }
+        }
+
+        public static void differentPacesmean(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("steady - You travel about 8 hours a");
+            Console.WriteLine("day, taking frequent rests. You take");
+            Console.WriteLine("care not to get too tired");
+            Console.WriteLine("");
+            Console.WriteLine("strenous - You travel about 12 hours");
+            Console.WriteLine("a day, starting just after sunrise");
+            Console.WriteLine("and stopping shorty before sunset.");
+            Console.WriteLine("You stop to rest only when necessary.");
+            Console.WriteLine("You finish each day feeling very");
+            Console.WriteLine("tired");
+            Console.WriteLine("");
+            Console.WriteLine("grueling - You travel about 16 hours");
+            Console.WriteLine("a day, starting before sunrise and");
+            Console.WriteLine("continuing until dark. You almost");
+            Console.WriteLine("never stop to rest. You do not get");
+            Console.WriteLine("enough sleep at night. You finish");
+            Console.WriteLine("each day feeling absolutely");
+            Console.WriteLine("exhausted, and your health suffers.");
+            Console.WriteLine("");
+
+            InputDetection.Space();
         }
 
         public static void ChangeFoodRations(Player player)
         {
+            string rations = "unknown prob in debug1";
+            if(player.rations == 3)
+            {
+                rations = "filling";
+            }
+            if (player.rations == 2)
+            {
+                rations = "meager";
+            }
+            if (player.rations == 1)
+            {
+                rations = "bare bones";
+            }
 
+            Console.Clear();
+            Console.WriteLine("Change food rations");
+            Console.WriteLine("(currently \"{0}\"", rations);
+            Console.WriteLine("");
+            Console.WriteLine("The amount of food the people in");
+            Console.WriteLine("your party eat each day can");
+            Console.WriteLine("change. These amounts are:");
+            Console.WriteLine("");
+            Console.WriteLine("1. filling - meals are large and");
+            Console.WriteLine("generous.");
+            Console.WriteLine("");
+            Console.WriteLine("2. meager - meals are small, but");
+            Console.WriteLine("adequate.");
+            Console.WriteLine("");
+            Console.WriteLine("3. bare bones - meals are very");
+            Console.WriteLine("small; everyone stays hungry.");
+            Console.WriteLine("");
+            Console.WriteLine("what is your chooise?");
+
+            InputDetection.DetectGameMenuInputOneTwoOrThree(player);
+            if (player.gameMenuInput == "D1")
+            {
+                player.rations = 3; //at best
+            }
+            if (player.gameMenuInput == "D2")
+            {
+                player.rations = 2;
+            }
+            if (player.gameMenuInput == "D3")
+            {
+                player.rations = 1;
+            }
         }
 
         public static void StopToRest(Player player)
@@ -548,7 +752,7 @@ namespace TheOregonTrail
             
             if (player.gameMenuInput == "D1")
             {
-               Ford(player, shop);
+               Ford(player, shop, listOfLandmarks);
             }
             if (player.gameMenuInput == "D2")
             {
@@ -569,11 +773,19 @@ namespace TheOregonTrail
             RiverCrossing(player, shop, listOfLandmarks);
         }
 
-        public static void Ford(Player player, Shop shop)
+        public static void Ford(Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
             Console.Clear();
-            Console.WriteLine("Ford");
+            Console.WriteLine("Ford Mustang");
+            System.Threading.Thread.Sleep(1000);
+            Console.Clear();
+            Console.WriteLine("You had no trouble");
+            Console.WriteLine("Fording the wagon");
+            Console.WriteLine("across.");
             InputDetection.Space();
+            player.LeavingALandmark = true;
+            player.InitLeg = true;
+            Cycle(player, shop, listOfLandmarks);
         }
         public static void CaulkTheWagon(Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
@@ -615,18 +827,24 @@ namespace TheOregonTrail
                 {
                     Cycle(player, shop, listOfLandmarks);
                 }
+                
+            }
+            else
+            {
+                Alternate3(player, shop, listOfLandmarks);
             }
         }
 
         public static void TakeFerry(Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
+            Random r = new Random();
             Console.Clear();
-            Console.WriteLine("Kansas River crossing");
+            Console.WriteLine("{0}", player.Landmark);
             headerWithDate(player);
             Console.WriteLine("");
             Console.WriteLine("The ferry operator says that");
             Console.WriteLine("he will charge you $5.00 and");
-            Console.WriteLine("that you will have to wait 2");
+            Console.WriteLine("that you will have to wait {0}",r.Next(1, 6));
             Console.WriteLine("days. Are you willing to do ");
             Console.WriteLine("this?");
             string takeFerry = Console.ReadLine();
@@ -832,24 +1050,13 @@ namespace TheOregonTrail
                     if (player.Landmark == "The Dalles")
                     {
                         Alternate3(player, shop, listOfLandmarks);
-                        Cycle(player, shop, listOfLandmarks);
-                        break;
-                    }
-                    if (player.Landmark == "Columbia River George")
-                    {
-                        Cycle(player, shop, listOfLandmarks);
-                        break;
-                    }
-                    if (player.Landmark == "Barlow Road")
-                    {
+                        //Cycle(player, shop, listOfLandmarks);
                         
-                        Cycle(player, shop, listOfLandmarks);
                         break;
-                    }
-                    if (player.Landmark == "Willameete Valley Oregon")
+                    }                   
+                    if (player.Landmark == "Willamette Valley Oregon")
                     {
-                        Cycle(player, shop, listOfLandmarks);
-                        break;
+                       
                     }
 
                 }

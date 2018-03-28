@@ -21,14 +21,27 @@ namespace TheOregonTrail
 
         //The Shoshoni guide will help
         //you float your wagon across.
-        
-        //Congratulations! You have
-        //made it to Oregon! Let's
-        //see how many points you have
-        //recived.
-        //Willamwette Valley
-        //September 24, 1848
-        //Press SPACE BAR to continue
+
+        // Points for arriving in Oregon
+        //
+        //5 people in fair health 2000
+        //1 wagon                   50
+        //6 oxen                    24
+        //7 spare wagon parts       14
+        //9 sets of clothing        18
+        //100 bullets                2
+        //1040 pounds of food       41
+        //     $2.00 cash            0
+
+        //    press SPACE BAR to continue
+
+
+        //ford
+        //2.7 feet:
+        //Your supplies got wet.
+        //Lose 1 day.
+        //add day
+
 
         //                                            1   2    3   4    5   6    7    8   9   10    11   12  13  14    15   16   17  18  19   20
         //List<int> Miles = new List<int>(new int[] { 102, 82, 118, 250, 86, 190, 102, 57, 125, 143, 57, 182, 113, 160, 55, 999, 999, 999, 100 });
