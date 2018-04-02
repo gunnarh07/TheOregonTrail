@@ -35,6 +35,13 @@ namespace TheOregonTrail
             player.playerInput = "";
         }
 
+        public static void SpacebarAndCycle(Player player, Shop shop, List<Landmarks> listOfLandmarks)
+        {
+            Console.WriteLine("     Press SPACE BAR to continue");
+            ConsoleKeyInfo info = Console.ReadKey();
+            player.playerInput = "";
+        }
+
         public static void SpaceOrYes(Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
             Console.WriteLine("     Press SPACE BAR to continue");
@@ -43,6 +50,7 @@ namespace TheOregonTrail
             {
                 //GameMenu.ShowRiverCrossing(player);
                 //GameMenu.PrintGameMenu(game, player, shop, listOfLandmarks);
+                player.gameMenuInput = "";
             }
 
             if (GameMenuInput.Key == ConsoleKey.Y)
@@ -59,25 +67,42 @@ namespace TheOregonTrail
 
         public static void YesOrNo(Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
-            ConsoleKeyInfo GameMenuInput = Console.ReadKey();
+            string GameMenuInput = Console.ReadLine().ToLower();
 
-
-            if (GameMenuInput.Key == ConsoleKey.Y)
+            if (GameMenuInput == "yes" || GameMenuInput == "y")
             {
                 player.gameMenuInput = ConsoleKey.Y.ToString();
             }
-            if (GameMenuInput.Key == ConsoleKey.N)
+            if (GameMenuInput == "no" || GameMenuInput == "n")
             {
                 player.gameMenuInput = ConsoleKey.N.ToString();
             }
-            if(GameMenuInput.Key != ConsoleKey.Y && GameMenuInput.Key != ConsoleKey.N)
+            if (GameMenuInput != "yes" && GameMenuInput != "y" && GameMenuInput != "no" && GameMenuInput != "n")
             {
                 player.AtLandmark = false;
                 player.LeavingALandmark = false;
                 GameMenu.Message(player, listOfLandmarks);
                 GameMenu.Status(player);
                 YesOrNo(player, shop, listOfLandmarks);
-            }          
+            }        
+        }
+
+        public static void FerryYesOrNo(Player player, Shop shop, List<Landmarks> listOfLandmarks)
+        {
+            string GameMenuInput = Console.ReadLine().ToLower();
+            
+            if (GameMenuInput == "yes" || GameMenuInput == "y")
+            {
+                player.gameMenuInput = ConsoleKey.Y.ToString();                
+            }
+            if (GameMenuInput == "no" || GameMenuInput == "n")
+            {
+                player.gameMenuInput = ConsoleKey.N.ToString();
+            }
+            if (GameMenuInput != "yes" && GameMenuInput != "y" && GameMenuInput != "no" && GameMenuInput != "n")
+            {
+                GameMenu.RiverCrossingMenu(player, shop, listOfLandmarks);
+            }
         }
 
         public static void DetectGameMenuInputOneOrTwo(Player player, Shop shop)

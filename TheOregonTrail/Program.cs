@@ -8,12 +8,9 @@ namespace TheOregonTrail
 {
     class Program
     {
-        static void Main(string[] args)
+        public void gameon(Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
-            //INIT
-            Player player = new Player();
-            Shop shop = new Shop();
-            Game game = new Game();
+            
             //init each lanmarks
             Landmarks L1 = new Landmarks();
             L1.Name = "Independence";
@@ -63,7 +60,7 @@ namespace TheOregonTrail
             L7.Ferry = false;
             L7.Distance = 190;
             L7.DistanceToNextLandmark = 102;
-        
+
             Landmarks L8 = new Landmarks();
             L8.Name = "South Pass";
             L8.Shop = false;
@@ -77,10 +74,10 @@ namespace TheOregonTrail
             L9.Shop = false;
             L9.Ferry = true;
             L9.Distance = 57;
-            L9.DistanceToNextLandmark = 143; 
+            L9.DistanceToNextLandmark = 143;
             L9.RiverWidth = 402;
             L9.RiverDepth = 20.3F;
-            
+
 
             Landmarks L10 = new Landmarks();
             L10.Name = "Fort Bridger";
@@ -119,7 +116,7 @@ namespace TheOregonTrail
             L14.Ferry = false;
             L14.Distance = 113;
             L14.DistanceToNextLandmark = 160;
-                
+
             Landmarks L15 = new Landmarks();
             L15.Name = "Blue Mountains";
             L15.Shop = false;
@@ -148,7 +145,7 @@ namespace TheOregonTrail
             L18.Distance = 100;
             L18.DistanceToNextLandmark = 0;
 
-            List <Landmarks> listOfLandmarks = new List<Landmarks>();
+            
             listOfLandmarks.Add(L1);
             listOfLandmarks.Add(L2);
             listOfLandmarks.Add(L3);
@@ -166,78 +163,85 @@ namespace TheOregonTrail
             listOfLandmarks.Add(L15);
             listOfLandmarks.Add(L16);
             listOfLandmarks.Add(L17);
-            //listOfLandmarks.Add(L18);
-            //listOfLandmarks.Add(L19);
             listOfLandmarks.Add(L18);
 
-
-
             TeamMembers Team = new TeamMembers();
-            
-            var input = 1;
-            if (player.debug)
-            {
-                player.occupation = "Farmer";
-                player.money = 4;
-                player.name1 = "Gunni";
-                player.name2 = "Liney";
-                player.name3 = "Birta";
-                player.name4 = "Victor";
-                player.name5 = "Margret";
-                string date = "01-03-1848";
-                DateTime dateOfDeparture = Convert.ToDateTime(date);
-                player.date = dateOfDeparture;
-                player.numberOfOxs = 4;
-                player.numberOfYokes = 2;
-                player.poundsOfFoods = 300;
-                player.setsOfClothing = 10;
-                player.money = 500;
-                player.ammo = 100;
-                player.spareParts = 3;
-                player.wagonWheel = 1;
-                player.wagonAxel = 1;
-                player.wagonTounge = 1;
+        }
 
-               
-            }
-            else
-            {
-                input = Menus.StartScreenMenu();
+        static void Main(string[] args)
+        {
+            //INIT
+
+
+
             
-                if (input == 1)
+            bool startGame = true;
+            while (startGame)
+            {
+                Program program = new Program();
+
+                Player player = new Player();
+                Shop shop = new Shop();
+                List<Landmarks> listOfLandmarks = new List<Landmarks>();
+                program.gameon(player, shop, listOfLandmarks);
+
+
+                var input = 1;
+                if (player.debug)
                 {
-                    Menus.OccupationMenu(player, shop);    
+                    player.occupation = "Farmer";
+                    player.scoreFactor = 3;//banker = 1, carpenter = 2, farmer = 3
+                    player.money = 4;
+                    player.name1 = "Gunni";
+                    player.name2 = "Liney";
+                    player.name3 = "Birta";
+                    player.name4 = "Victor";
+                    player.name5 = "Margret";
+                    string date = "01-03-1848";
+                    DateTime dateOfDeparture = Convert.ToDateTime(date);
+                    player.date = dateOfDeparture;
+                    player.numberOfOxs = 6;
+                    player.numberOfYokes = 3;
+                    player.poundsOfFoods = 140;
+                    player.setsOfClothing = 4;
+                    player.money = 500;
+                    player.ammo = 57;
+                    player.spareParts = 6;
+                    player.wagonWheel = 2;
+                    player.wagonAxel = 2;
+                    player.wagonTounge = 2;
+
+
+                }
+                else
+                {
+                    input = Menus.StartScreenMenu();
+
+                    if (input == 1)
+                    {
+                        Menus.OccupationMenu(player, shop);
+                    }
+
+                    if (input == 1 || input == 2 || input == 3)
+                    {
+                        Menus.NameMenu(player);
+                    }
+
+                    Menus.DateOfDeparture(player);
+
+                    Console.Clear();
+
+                    Store.TheStore(player, shop);
+                    //Gameloop
+                    InputDetection.Spacebar(shop);
                 }
 
-                if (input == 1 || input == 2 || input == 3)
+                while (player.GameIsOn)
                 {
-                    Menus.NameMenu(player);                
+                    player.Landmark = listOfLandmarks[player.IndexForLandmarks].Name;
+                    GameMenu.PrintGameMenu(player, shop, listOfLandmarks);
                 }
-
-                Menus.DateOfDeparture(player);
-
-                Console.Clear();
-
-                Store.TheStore(player, shop);
-                //Gameloop
-                InputDetection.Spacebar(shop);
             }
-
-            while (player.GameIsOn)
-            {
-                //Console.Clear();
-                //Console.WriteLine("Independence");
-                //Console.WriteLine(player.date);
-                //InputDetection.Spacebar(player);
-
-                //setupgame
-
-
-                player.Landmark = listOfLandmarks[player.IndexForLandmarks].Name;
-
-
-                GameMenu.PrintGameMenu(player, shop, listOfLandmarks);
-            } 
         }
     }
 }

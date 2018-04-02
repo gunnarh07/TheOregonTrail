@@ -314,19 +314,47 @@ namespace TheOregonTrail
                 player.BarlowTollRoad = true;
             }
         }
+
+        public static void getScoreFactor(Player player)
+        {
+            if(player.health == "poor")
+            {
+                player.peopleFactor = 200; 
+            }
+            if(player.health == "fair")
+            {
+                player.peopleFactor = 400;
+            }
+            if(player.health == "good")
+            {
+                player.peopleFactor = 600;
+            }
+        }
+
         public static void Score(Player player)
         {
+            Console.Clear();
+            getScoreFactor(player);
             Console.WriteLine("Points for arriving in Oregon");
-            Console.WriteLine("{0} people in {1} health       ", player.teamSize);
-            Console.WriteLine("{0} wagon                      ", player.wagon * 50);
-            Console.WriteLine("{0} oxen                       ", player.numberOfOxs * 5);
-            Console.WriteLine("{0} sets of clothing           ", player.setsOfClothing * 2);
-            Console.WriteLine("{0} bullets                    ", player.ammo /100 * 2);
-            Console.WriteLine("{0} pounds of food             ", player.poundsOfFoods / 100 * 4);
-            Console.WriteLine("${0} cash"                      , player.money / 5); // floor
+            Console.WriteLine("{0}  people in {1} health  {2}  ", player.teamSize, player.health, player.peopleScore += player.teamSize * player.peopleFactor * player.scoreFactor);//poor = 200, fair = 400, good = 600
+            Console.WriteLine("{0}  wagon                 {1}  ", player.wagon, player.wagonScore += player.wagon * 50 * player.scoreFactor);
+            Console.WriteLine("{0}  oxen                  {1}  ", player.numberOfOxs, player.oxenScore += player.numberOfOxs * 4 * player.scoreFactor);
+            Console.WriteLine("{0}  spare wagon parts     {1}  ", player.spareParts, player.sparepartScore += player.spareParts * 2 * player.scoreFactor);
+            Console.WriteLine("{0}  sets of clothing      {1}  ", player.setsOfClothing, player.setofclothingScore += player.setsOfClothing * 2 * player.scoreFactor);
+            Console.WriteLine("{0} bullets               {1}  ", player.ammo, player.bulletScore += player.ammo /100 * 2 * player.scoreFactor);
+            Console.WriteLine("{0} pounds of food       {1}  ", player.poundsOfFoods, player.foodScore += (player.poundsOfFoods / 100) * 4 * player.scoreFactor);
+            Console.WriteLine("    ${0} cash           {1}  ", player.money, player.cashScore += (Convert.ToInt32(player.money / 5) * player.scoreFactor));
             Console.WriteLine("");
-            Console.WriteLine("Total:   {0}"                   , player.totalScore);
+            player.totalScore = player.peopleScore + player.wagonScore + player.oxenScore + player.sparepartScore + player.setofclothingScore + player.bulletScore + player.foodScore + player.cashScore;
+            Console.WriteLine("                 Total:   {0}", player.totalScore);
+            if(player.occupation == "farmer")
+            {
+                Console.WriteLine("For going as a farmer, your");
+                Console.WriteLine("points are tripled");
+            }
+
             InputDetection.Spacebar(player);
+            player.GameIsOn = false;
         }
 
         public static void Cycle(Player player, Shop shop, List<Landmarks> listOfLandmarks)//, Program program)
@@ -375,7 +403,6 @@ namespace TheOregonTrail
                         if (player.greenRiverCrossing)
                         {
                             player.IndexForLandmarks += 2;
-                            //player.theLeg = listOfLandmarks[7].DistanceToNextLandmark;
                             player.Landmark = listOfLandmarks[player.IndexForLandmarks].Name;
                             player.greenRiverCrossing = false;
                         }
@@ -448,7 +475,7 @@ namespace TheOregonTrail
                     }
                     else
                     {
-                        InputDetection.SpaceOrYes(player, shop, listOfLandmarks);
+                        InputDetection.SpacebarAndCycle(player, shop, listOfLandmarks);
                         player.LeavingALandmark = false;
 
                     }
@@ -699,7 +726,7 @@ namespace TheOregonTrail
             Console.WriteLine("You have ${0} to spend.", player.money);
             Console.WriteLine("Which number?");
         }
-        
+
 
         public static void RiverCrossing(Player player, Shop shop, List<Landmarks> listOfLandmarks)
         {
@@ -718,9 +745,12 @@ namespace TheOregonTrail
                 Console.WriteLine("");
                 InputDetection.Space();
                 player.krc = true;
+                RiverCrossingMenu(player, shop, listOfLandmarks);
             }
-            
-
+        }
+        
+        public static void RiverCrossingMenu(Player player, Shop shop, List<Landmarks> listOfLandmarks)
+        { 
             Console.Clear();
             Console.WriteLine("{0}", player.Landmark);
             headerWithDate(player);
@@ -835,23 +865,36 @@ namespace TheOregonTrail
             }
         }
 
-        public static void TakeFerry(Player player, Shop shop, List<Landmarks> listOfLandmarks)
+        public static void setSomeDays(Player player)
         {
             Random r = new Random();
+            player.someDays = r.Next(2, 7);
+        }
+
+        public static void waitingAfterFerry(Player player, Shop shop, List<Landmarks> listOfLandmarks)
+        {
             Console.Clear();
             Console.WriteLine("{0}", player.Landmark);
             headerWithDate(player);
             Console.WriteLine("");
             Console.WriteLine("The ferry operator says that");
             Console.WriteLine("he will charge you $5.00 and");
-            Console.WriteLine("that you will have to wait {0}",r.Next(1, 6));
+            Console.WriteLine("that you will have to wait {0}", player.someDays);
             Console.WriteLine("days. Are you willing to do ");
             Console.WriteLine("this?");
-            string takeFerry = Console.ReadLine();
-            if (takeFerry == "y" || takeFerry == "yes")
+        }
+
+        public static void TakeFerry(Player player, Shop shop, List<Landmarks> listOfLandmarks)
+        {
+            setSomeDays(player);
+
+            waitingAfterFerry(player, shop, listOfLandmarks);            
+
+            InputDetection.FerryYesOrNo(player, shop, listOfLandmarks);
+            if(player.gameMenuInput == "Y")
             {
-                if(player.money < 5)
-                {
+                if (player.money < 5)
+                {                    
                     Console.Clear();
                     Console.WriteLine("Kansas River crossing");
                     headerWithDate(player);
@@ -863,6 +906,13 @@ namespace TheOregonTrail
                 }
                 else
                 {
+                    while (player.someDays > 0)
+                    {
+                        player.date = player.date.AddDays(1);
+                        waitingAfterFerry(player, shop, listOfLandmarks);
+                        player.someDays -= 1;
+                        System.Threading.Thread.Sleep(1000);
+                    }
                     Console.Clear();
                     Console.WriteLine("Taking the ferry!");
                     System.Threading.Thread.Sleep(1000);
@@ -872,8 +922,14 @@ namespace TheOregonTrail
                     InputDetection.Space();
                     player.LeavingALandmark = true;
                     player.InitLeg = true;
+                    player.gameMenuInput = "";
                     Cycle(player, shop, listOfLandmarks);
-                }                
+                }                               
+            }
+            else
+            {
+                RiverCrossingMenu(player, shop, listOfLandmarks);
+
             }
         }
         public static void WaitToSee(Player player)

@@ -21,10 +21,19 @@ namespace TheOregonTrail
         public string name4;
         public string name5;
         public int teamSize = 5;
+        public int scoreFactor;
         public string weather = getWeather();
         public string health = "good";
         public string steady = "steady";
-        
+        public int peopleScore = 0;
+        public int wagonScore = 0;
+        public int oxenScore = 0;
+        public int sparepartScore = 0;
+        public int setofclothingScore = 0;
+        public int bulletScore = 0;
+        public int foodScore = 0;
+        public int cashScore = 0;
+        public int peopleFactor;
         public DateTime date;//date used for start time and track time 
 
         public decimal money; //players money
@@ -38,13 +47,13 @@ namespace TheOregonTrail
         public int wagonAxel = 0;
         public int wagonTounge = 0;
         public int spareParts;
-        public int wagon;
+        public int wagon = 1;
         public int totalScore;
         public bool ShowMessage = true;
         /// <summary>
         /// debug
         /// </summary>
-        public bool debug = true;
+        public bool debug = true;//------------------****************////////////
         public bool shop = true;
         public bool Traveling = true;
         public bool AtLandmark = true;
@@ -53,7 +62,7 @@ namespace TheOregonTrail
         public int leg = 0;
         public int MilesTraveled = 0;
         public int MilesToNextLandmark = 0;
-        public int pace = 50;
+        public int pace = 20;
         public string Landmark;
         public bool AtFort = true;
         public bool InitLeg = true;
@@ -94,7 +103,6 @@ namespace TheOregonTrail
 
         public static string getWeather()
         {
-
             string weather = "cold";
             return weather;
         }

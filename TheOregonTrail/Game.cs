@@ -9,8 +9,6 @@ namespace TheOregonTrail
 {
     class Game
     {
-        //public string weather = "cold";
-
         //A Shoshoni guide says that he
         //will take your wagon across
         //the river in exchange for 2

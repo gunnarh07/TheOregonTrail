@@ -9,8 +9,8 @@ namespace TheOregonTrail
     class Menus
     {
         public static int StartScreenMenu()           
-        {       
-           
+        {
+            Console.Clear();           
             Console.WriteLine("-----THE  OREGON  TRAIL-------");
             Console.WriteLine("    You may:");
             Console.WriteLine("        1. Travel the trail");
@@ -53,16 +53,19 @@ namespace TheOregonTrail
             {
                 player.occupation = "Banker";
                 player.money = 1600;
+                player.scoreFactor = 1;
             }
             if (input == 2)
             {
                 player.occupation = "Carpenter";
                 player.money = 800;
+                player.scoreFactor = 2;
             }
             if (input == 3)
             {
                 player.occupation = "Farmer";
-                player.money = 0;//TODO change to 400 for not debuging
+                player.money = 400;
+                player.scoreFactor = 3;
             }
             if (input == 4)
             {
